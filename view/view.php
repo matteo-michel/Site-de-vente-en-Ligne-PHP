@@ -27,8 +27,6 @@
             } else {
                 $_SESSION['LAST_ACTIVITY'] = time();
             }
-            //if (isset($_SESSION['login'])) echo $_SESSION['login'];
-            //if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == '1') echo " C'est un admin !";
 			$filepath = File::build_path(array("view", static::$object, "$view.php"));
 			require $filepath;
 		?>
