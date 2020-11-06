@@ -6,8 +6,14 @@ class controllerBook
     protected static $object = 'book';
 
     public static function readAll() {
-        $tab_v = ModelBook::selectAll();
         $view = 'list';
+        require File::build_path(array('view', 'view.php'));
+    }
+
+    public static function read()
+    {
+        $book = ModelBook::select($_GET['isbn']);
+        $view = 'detail';
         require File::build_path(array('view', 'view.php'));
     }
 }

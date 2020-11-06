@@ -6,7 +6,6 @@ class ControllerUtilisateur {
 	protected static $object = 'utilisateur';
 
     public static function readAll() {
-        //if (!isset($_SESSION['login'])) ControllerUtilisateur::login();
         $tab_v = ModelUtilisateur::selectAll();
         $view = 'list';
         require File::build_path(array('view', 'view.php'));
@@ -32,7 +31,7 @@ class ControllerUtilisateur {
             $_SESSION['login'] = $login;
             $user = ModelUtilisateur::select($login);
             $_SESSION['isAdmin'] = $user->get('isAdmin');
-            self::readAll();
+            header('Location: index.php');
         }
     }
 
@@ -63,7 +62,7 @@ class ControllerUtilisateur {
     {
         session_unset();
         session_destroy();
-        ControllerUtilisateur::readAll();
+        header('Location: index.php');
     }
 
     public static function profile()

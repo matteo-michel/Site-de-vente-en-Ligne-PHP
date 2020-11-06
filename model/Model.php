@@ -30,7 +30,7 @@ class Model {
     $table_name = static::$object;
     $class_name = 'Model' . ucfirst($table_name);
     try {
-        $rep = Model::$pdo -> query("SELECT * FROM $table_name");
+        $rep = Model::$pdo -> query("SELECT * FROM $table_name $order_by");
         $rep->setFetchMode(PDO::FETCH_CLASS, "$class_name");
         $tab_obj = $rep->fetchAll();
         return $tab_obj;

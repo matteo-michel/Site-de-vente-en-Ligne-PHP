@@ -10,12 +10,13 @@
                 <?php 
                 echo "<li><a href=\"index.php\">Accueil</a></li>";
                 if (!isset($_SESSION['login'])) {
-                    echo "<li><a href=\"index.php?action=register\">S'inscrire</a></li>";
-                    echo "<li><a href=\"index.php?action=login\">Se Connecter</a></li>";
+                    echo "<li><a href=\"index.php?controller=utilisateur&action=register\">S'inscrire</a></li>";
+                    echo "<li><a href=\"index.php?controller=utilisateur&action=login\">Se Connecter</a></li>";
                 } else
                 {
-                    echo "<li><a href=\"index.php?action=profile\">Mon profile</a></li>";
-                    echo "<li><a href=\"index.php?action=logout\">Deconnexion</a></li>";
+                    echo "<li><a href=\"index.php?controller=utilisateur&action=profile\">Mon profile</a></li>";
+                    echo "<li><a href=\"index.php?controller=utilisateur\">Liste d'utilisateur</a></li>";
+                    echo "<li><a href=\"index.php?controller=utilisateur&action=logout\">Deconnexion</a></li>";
                 }
                 ?>
             </ul>
