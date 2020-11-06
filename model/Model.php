@@ -140,6 +140,28 @@ class Model {
 
   }
 
+  public static function delete() {
+    $table_name = static::$object;
+    $primary_key = static::$primary;
+    $primary_value = $_GET["$primary_key"];
+
+    try {
+      $sql = "DELETE FROM $table_name WHERE $primary_key = :primary_key;";
+      $req = Model::$pdo->prepare($sql);
+      
+      $value = array('primary_key' => $primary_value);
+      $req->execute($value);
+
+    } catch (PDOException $e) {
+      if (Conf::getDebug()) {
+        echo $e->getMessage(); // affiche un message d'erreur
+      } else {
+        echo 'Une erreur est survenue <a href="index.php"> retour a la page d\'accueil </a>';
+      }
+      die();
+    }
+  }
+
 }
 
 Model::Init();

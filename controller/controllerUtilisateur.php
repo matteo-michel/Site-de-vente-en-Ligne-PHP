@@ -98,6 +98,24 @@ class ControllerUtilisateur {
         self::profile();
 
     }
+
+    public static function delete() {
+        if (isset($_SESSION['login'])) {
+            if($_GET['login'] == $_SESSION['login'] || $_SESSION['isAdmin'] == '1') {
+                modelUtilisateur::delete();
+                if($_GET['login'] == $_SESSION['login'])
+                    self::logout();
+                else
+                    self::readAll();
+            } else {
+                echo "Vous n'avez pas le droit de réaliser cela !";
+                self::readAll();
+            }
+        } else {
+            self::login();
+        }
+    }
+
 }
 ?>
 
