@@ -31,7 +31,7 @@
                 }
                 ?>
             </select>
-            <a href="">Ajouter un Auteur</a>
+            <a href="index.php?controller=auteur&action=create">Ajouter un Auteur</a>
 
             <label for="categorie_id">Categorie</label> :
             <select name="numCategorie[]" id="categorie_id" multiple required>

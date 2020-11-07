@@ -1,6 +1,7 @@
 <?php
 require_once File::build_path(array('controller','controllerUtilisateur.php'));
 require_once File::build_path(array('controller','controllerBook.php'));
+require_once File::build_path(array('controller','controllerAuteur.php'));
 
 
 if (!isset($_GET['controller']))
