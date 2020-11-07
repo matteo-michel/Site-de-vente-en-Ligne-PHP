@@ -85,4 +85,51 @@ class ModelBook extends Model
         }
     }
 
+    public static function saveBookCategorie($data)
+    {
+        try {
+            $sql = "INSERT INTO bookCategorie VALUES (:primary_key, :second_primary_key)";
+            $req_prep = Model::$pdo->prepare($sql);
+            $values = array(
+                "primary_key"=>$data['isbn'],
+                "second_primary_key"=> $data['numCategorie']
+            );
+            $req_prep->execute($values);
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else if ($e->getCode() == 23000){
+                echo "Erreur";
+                return false;
+            }
+            else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+
+    public static function saveBookAuteur($data)
+    {
+        try {
+            $sql = "INSERT INTO bookAuteur VALUES (:primary_key, :second_primary_key)";
+            $req_prep = Model::$pdo->prepare($sql);
+            $values = array(
+                "primary_key"=>$data['isbn'],
+                "second_primary_key"=> $data['numAuteur']
+            );
+            $req_prep->execute($values);
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else if ($e->getCode() == 23000){
+                echo "Erreur";
+                return false;
+            }
+            else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
 }

@@ -19,13 +19,16 @@
         $q_array = explode(' ', $_POST['search']);
         $tab = array();
         foreach ($q_array as $q) {
-            $listNewBook = ModelBook::getBookByAutors($q);
-            foreach ($listNewBook as $nb) {
-                $in_array = false;
-                foreach ($tab as $t) {
-                    if ($t->get('isbn') == $nb->get('isbn')) $in_array = true;
+            $listNewBook = ModelBook::getBookByAutors($q_array);
+            if (empty($listNewBook)) echo "Il n’y a aucun résultat pour votre recherche. Vérifiez l’orthographe des mots saisis, complétez-les par un nouveau mot clé ou désactivez les filtres actifs";
+            else {
+                foreach ($listNewBook as $nb) {
+                    $in_array = false;
+                    foreach ($tab as $t) {
+                        if ($t->get('isbn') == $nb->get('isbn')) $in_array = true;
+                    }
+                    if (!$in_array) array_push($tab, $nb);
                 }
-                if (!$in_array) array_push($tab, $nb);
             }
         }
     } else

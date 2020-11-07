@@ -47,7 +47,6 @@ class Model {
   public static function saveGen($data)
   {
     $table_name = static::$object;
-    $class_name = 'Model' . ucfirst($table_name);
     $primary_key = static::$primary;
     $primary_key_value = $_POST["$primary_key"];
     $stringInto = $table_name . '(' . $primary_key . ',';
