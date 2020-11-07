@@ -48,5 +48,6 @@
 
         echo '<p> Auteurs : '. $resultAuteur .'</p>';
         echo '<p> Livre de numéro : <a href="index.php?action=read&isbn=' . rawurlencode($bISBN) . '">' . htmlspecialchars($bISBN) . '</a>'. " " . $u->get('titre') . '</p>';
+        echo "<p><a href=\"index.php?controller=utilisateur&action=addPanier&isbn=" . rawurlencode($bISBN) . "\">Ajouter au panier</a></p>";
     }
 ?>

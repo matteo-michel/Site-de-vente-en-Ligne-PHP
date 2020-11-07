@@ -41,11 +41,11 @@ class modelUtilisateur extends Model {
         try {
         $sql="SELECT * from utilisateur WHERE login =:login";
         $req_prep = Model::$pdo->prepare($sql);
-        $values = array("login"=>$login,
-        );
+        $values = array("login"=>$login);
         $req_prep->execute($values);
         $req_prep->setFetchMode(PDO::FETCH_CLASS, "modelUtilisateur");
         $tab_voit=$req_prep->fetchAll();
+
         if(empty($tab_voit))return false;
         return$tab_voit[0];
       } catch (PDOException $e) {

@@ -6,7 +6,7 @@ class ControllerUtilisateur {
 	protected static $object = 'utilisateur';
 
     public static function readAll() {
-        $tab_v = ModelUtilisateur::selectAll();
+        $tab = ModelUtilisateur::selectAll(';');
         $view = 'list';
         require File::build_path(array('view', 'view.php'));
     }
@@ -113,6 +113,35 @@ class ControllerUtilisateur {
         } else {
             self::login();
         }
+    }
+
+    public static function addPanier() {
+        $data = array($_GET['isbn']);
+        if(!isset($_COOKIE['panier'])) {
+            setcookie('panier', serialize($data), time()+3600);
+        } else {
+            $panier = unserialize($_COOKIE['panier'], ["allowed_classes" => false]);
+            unset($_COOKIE['panier']);
+            $result = array_merge($panier, $data);
+            setcookie('panier', serialize($result), time() + 3600);
+        }
+        header('Location: index.php');
+    }
+
+    public static function removeFromPanier() {
+        $isbn = $_GET['isbn'];
+        $panier = unserialize($_COOKIE['panier'], ["allowed_classes" => false]);
+        $index = array_search($isbn, $panier);
+        unset($panier[$index]);
+        unset($_COOKIE['panier']);
+        setcookie('panier', serialize($panier), time() + 3600);
+        header('Location: index.php?controller=utilisateur&action=panier');
+    }
+
+    public static function panier() {
+        $tab =  unserialize($_COOKIE['panier'], ["allowed_classes" => false]);
+        $view = 'panier';
+        require File::build_path(array('view', 'view.php'));
     }
 
 }

@@ -9,6 +9,7 @@
             <ul>
                 <?php 
                 echo "<li><a href=\"index.php\">Accueil</a></li>";
+                echo "<li><a href=\"index.php?controller=utilisateur&action=panier\">Mon panier</a></li>";
                 if (!isset($_SESSION['login'])) {
                     echo "<li><a href=\"index.php?controller=utilisateur&action=register\">S'inscrire</a></li>";
                     echo "<li><a href=\"index.php?controller=utilisateur&action=login\">Se Connecter</a></li>";

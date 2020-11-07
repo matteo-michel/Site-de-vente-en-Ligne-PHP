@@ -1,5 +1,5 @@
 <?php
-foreach ($tab_v as $u){
+foreach ($tab as $u){
     $uLogin = $u->get('login');
     echo '<p> Utilisateur de login : <a href="">' . htmlspecialchars($uLogin) . '</a></br>';
     if(isset($_SESSION['login']) && $_SESSION['isAdmin'] == '1') {
