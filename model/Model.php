@@ -25,12 +25,12 @@ class Model {
       }
   }
 
-  public static function selectAll()
+  public static function selectAll($order_by)
   {
     $table_name = static::$object;
     $class_name = 'Model' . ucfirst($table_name);
     try {
-        $rep = Model::$pdo -> query("SELECT * FROM $table_name $order_by");
+      $rep = Model::$pdo -> query("SELECT * FROM $table_name $order_by");
         $rep->setFetchMode(PDO::FETCH_CLASS, "$class_name");
         $tab_obj = $rep->fetchAll();
         return $tab_obj;
@@ -88,19 +88,17 @@ class Model {
 
     try {
         $sql="SELECT * from $table_name WHERE $primary_key=:nom_tag";
-        // Préparation de la requête
+
         $req_prep = Model::$pdo->prepare($sql);
-        $values = array("nom_tag"=>$primary_value,
-              //nomdutag => valeur, ...
-        );
-        // On donne les valeurs et on exécute la requête
+        $values = array("nom_tag" => $primary_value);
+
         $req_prep->execute($values);
-        // On récupère les résultats comme précédemment
+
         $req_prep->setFetchMode(PDO::FETCH_CLASS, "$class_name");
-        $tab_voit=$req_prep->fetchAll();
-        // Attention, si il n'y a pas de résultats, on renvoie false
-        if(empty($tab_voit))return false;
-        return$tab_voit[0];
+        $tab = $req_prep->fetchAll();
+
+        if(empty($tab)) return false;
+        return$tab[0];
       } catch (PDOException $e) {
         if (Conf::getDebug()) {
           echo $e->getMessage(); // affiche un message d'erreur

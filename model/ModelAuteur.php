@@ -1,16 +1,13 @@
 <?php
 require_once File::build_path(array('model', 'Model.php'));
 
-class ModelBook extends Model
-{
-    private $isbn;
-    private $titre;
-    private $numEditeur;
-    private $prix;
-    private $dateParution;
+class ModelAuteur extends Model {
+    private $nomAuteur;
+    private $prenomAuteur;
+    private $numAuteur;
 
-    protected static $object = 'book';
-    protected static $primary = 'isbn';
+    protected static $object = 'auteur';
+    protected static $primary = 'numAuteur';
 
     public function get($nom_attribut) {
         if (property_exists($this, $nom_attribut))
@@ -24,26 +21,20 @@ class ModelBook extends Model
         return false;
     }
 
-    public function __construct($isbn = NULL, $titre = NULL, $numEditeur = NULL, $prix = NULL, $dateParution = NULL) {
-        if (!is_null($isbn) && !is_null($titre) && !is_null($numEditeur) && !is_null($prix) && !is_null($dateParution)) {
-            $this->isbn = $isbn;
-            $this->titre = $titre;
-            $this->numEditeur = $numEditeur;
-            $this->prix = $prix;
-            $this->dateParution = $dateParution;
+    public function __construct($nomAuteur = NULL, $prenomAuteur = NULL, $numAuteur = NULL) {
+        if (!is_null($nomAuteur) && !is_null($prenomAuteur) && !is_null($numAuteur)) {
+            $this->nomAuteur = $nomAuteur;
+            $this->prenomAuteur = $prenomAuteur;
+            $this->numAuteur = $numAuteur;
         }
     }
 
-    public static function getSearch($search) {
+    public static function getBookAuteurs($isbn) {
         try {
-            $sql= "SELECT * 
-            FROM book b
-            JOIN bookAuteur ba ON ba.isbn = b.isbn
-            JOIN auteur a ON a.numAuteur = ba.numAuteur
-            WHERE :search";
+            $sql= "SELECT nomAuteur, prenomAuteur from auteur a JOIN bookAuteur b ON a.numAuteur = b.numAuteur WHERE b.isbn = :isbn";
             $req_prep = Model::$pdo->prepare($sql);
 
-            $values = array("search" => $search);
+            $values = array("isbn" => $isbn);
             $req_prep->execute($values);
             $req_prep->setFetchMode(PDO::FETCH_CLASS, "ModelAuteur");
             $tab=$req_prep->fetchAll();
@@ -60,5 +51,4 @@ class ModelBook extends Model
             die();
         }
     }
-
 }

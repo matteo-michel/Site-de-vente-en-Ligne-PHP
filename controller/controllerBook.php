@@ -1,5 +1,6 @@
 <?php
 require_once File::build_path(array('model', 'ModelBook.php'));
+require_once File::build_path(array('model', 'ModelAuteur.php'));
 
 class controllerBook
 {
