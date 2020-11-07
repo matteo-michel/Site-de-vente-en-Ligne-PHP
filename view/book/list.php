@@ -14,10 +14,25 @@
     $order_by = ';';
     if (isset($_POST['book']) && $_POST['book'] != '') {
         $order_by = 'ORDER BY ' . $_POST['book'];
-    } else if ($_POST['book'] == '' && isset($_POST['search']) && $_POST['search'] != '') {
-
+        $tab = ModelBook::selectAll($order_by);
+    } else if (isset($_POST['search']) && $_POST['search'] != '') {
+        $q_array = explode(' ', $_POST['search']);
+        $tab = array();
+        foreach ($q_array as $q) {
+            $listNewBook = ModelBook::getBookByAutors($q);
+            foreach ($listNewBook as $nb) {
+                $in_array = false;
+                foreach ($tab as $t) {
+                    if ($t->get('isbn') == $nb->get('isbn')) $in_array = true;
+                }
+                if (!$in_array) array_push($tab, $nb);
+            }
+        }
+    } else
+    {
+        $tab = ModelBook::selectAll($order_by);
     }
-    $tab = ModelBook::selectAll($order_by);
+
 
     foreach ($tab as $u){
         $bISBN = $u->get('isbn');
