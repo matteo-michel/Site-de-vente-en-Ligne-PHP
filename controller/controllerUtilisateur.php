@@ -1,5 +1,6 @@
 <?php
 require_once File::build_path(array('model', 'ModelUtilisateur.php'));
+require_once File::build_path(array('model', 'ModelItemPanier.php'));
 
 class ControllerUtilisateur {
 
@@ -116,32 +117,63 @@ class ControllerUtilisateur {
     }
 
     public static function addPanier() {
-        $data = array($_GET['isbn']);
-        if(!isset($_COOKIE['panier'])) {
-            setcookie('panier', serialize($data), time()+3600);
-        } else {
-            $panier = unserialize($_COOKIE['panier'], ["allowed_classes" => false]);
+        if(isset($_COOKIE['panier'])) {
+            $panier = unserialize($_COOKIE['panier'], ["allowed_classes" => true]);
             unset($_COOKIE['panier']);
-            $result = array_merge($panier, $data);
-            setcookie('panier', serialize($result), time() + 3600);
+            $item = self::findObjectById($_GET['isbn'], $panier);
+            if (!$item) {
+                $itemPanier = new ModelItemPanier($_GET['isbn'], 1);
+                $data = array($itemPanier);
+                $data = array_merge($panier, $data);
+                setcookie('panier', serialize($data), time() + 3600);
+            } else {
+                $item->addQuantite();
+                setcookie('panier', serialize($panier), time() + 3600);
+            }
+        } else {
+            $itemPanier = new ModelItemPanier($_GET['isbn'], 1);
+            $data = array($itemPanier);
+            setcookie('panier', serialize($data), time() + 3600);
         }
         header('Location: index.php');
     }
 
     public static function removeFromPanier() {
         $isbn = $_GET['isbn'];
-        $panier = unserialize($_COOKIE['panier'], ["allowed_classes" => false]);
+        $panier = unserialize($_COOKIE['panier'], ["allowed_classes" => true]);
         $index = array_search($isbn, $panier);
-        unset($panier[$index]);
+        $panier[$index]->removeQuantite();
+        if($panier[$index]->get('quantite') == 0) {
+            unset($panier[$index]);
+        }
         unset($_COOKIE['panier']);
         setcookie('panier', serialize($panier), time() + 3600);
         header('Location: index.php?controller=utilisateur&action=panier');
     }
 
-    public static function panier() {
-        $tab =  unserialize($_COOKIE['panier'], ["allowed_classes" => false]);
+    public static function clearPanier() {
+        if(isset($_COOKIE['panier'])) {
+            setcookie("panier", "", time() - 3600);
+        }
+        header('Location: index.php?controller=utilisateur&action=panier');
+    }
+
+    public static function panier()
+    {
+        $tab = array();
+        if (isset($_COOKIE['panier']))
+            $tab = unserialize($_COOKIE['panier'], ["allowed_classes" => true]);
         $view = 'panier';
         require File::build_path(array('view', 'view.php'));
+    }
+
+    public static function findObjectById($id, $array){
+        foreach ($array as $element ) {
+            if ( $id == $element->get('isbn')) {
+                return $element;
+            }
+        }
+        return false;
     }
 
 }
