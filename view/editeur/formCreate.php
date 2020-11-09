@@ -6,11 +6,8 @@
 
             <input type='hidden' name='action' value='<?php echo $name ?>'>
 
-            <label for="prenomAuteur_id">prenom auteur</label> :
-            <input type="text"  name="prenomAuteur" id="prenomAuteur_id" required/>
-
-            <label for="nomAuteur_id">nom auteur</label> :
-            <input type="text"  name="nomAuteur" id="nomAuteur_id" required/>
+            <label for="nomEditeur_id">nom editeur</label> :
+            <input type="text"  name="nomEditeur" id="nomEditeur_id" required/>
 
         </p>
         <p>

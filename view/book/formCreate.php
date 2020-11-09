@@ -20,7 +20,7 @@
                     }
                 ?>
             </select>
-            <a href="">Ajouter un Editeur</a>
+            <a href="index.php?controller=editeur&action=create">Ajouter un Editeur</a>
 
             <label for="numAuteur_id">Nom Auteur</label> :
             <select name="numAuteur[]" id="numAuteur_id" multiple required>
@@ -43,7 +43,7 @@
                 }
                 ?>
             </select>
-            <a href="">Ajouter une Catégorie</a>
+            <a href="index.php?controller=categorie&action=create">Ajouter une Catégorie</a>
 
             <label for="prix_id">Prix</label> :
             <input type="number"  name="prix" id="prix_id" required/>
