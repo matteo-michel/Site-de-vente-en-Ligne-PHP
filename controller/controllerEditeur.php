@@ -27,6 +27,12 @@ class controllerEditeur
         require File::build_path(array('view', 'view.php'));
     }
 
+    public static function delete()
+    {
+        ModelEditeur::delete();
+        self::readAll();
+    }
+
     public static function created()
     {
         $data = array('nomEditeur' => $_POST['nomEditeur']);

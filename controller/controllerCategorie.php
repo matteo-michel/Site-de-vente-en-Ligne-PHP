@@ -27,6 +27,12 @@ class controllerCategorie
         require File::build_path(array('view', 'view.php'));
     }
 
+    public static function delete()
+    {
+        ModelCategorie::delete();
+        self::readAll();
+    }
+
     public static function created()
     {
         $data = array('nomCategorie' => $_POST['nomCategorie']);
