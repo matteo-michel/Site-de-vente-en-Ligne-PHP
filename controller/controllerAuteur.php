@@ -27,6 +27,12 @@ class controllerAuteur
         require File::build_path(array('view', 'view.php'));
     }
 
+    public static function delete()
+    {
+        ModelAuteur::delete();
+        self::readAll();
+    }
+
     public static function created()
     {
         $data = array(

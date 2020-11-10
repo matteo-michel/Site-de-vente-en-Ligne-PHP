@@ -17,6 +17,9 @@
                 {
                     echo "<li><a href=\"index.php?controller=utilisateur&action=profile\">Mon profile</a></li>";
                     echo "<li><a href=\"index.php?controller=utilisateur\">Liste d'utilisateur</a></li>";
+                    echo "<li><a href=\"index.php?controller=editeur\">Liste d'éditeur</a></li>";
+                    echo "<li><a href=\"index.php?controller=categorie\">Liste de catégorie</a></li>";
+                    echo "<li><a href=\"index.php?controller=auteur\">Liste d'auteur</a></li>";
                     echo "<li><a href=\"index.php?action=create\">Ajouter un livre</a></li>";
                     echo "<li><a href=\"index.php?controller=utilisateur&action=logout\">Deconnexion</a></li>";
                 }

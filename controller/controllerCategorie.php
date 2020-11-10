@@ -4,9 +4,9 @@ require_once File::build_path(array('model', 'ModelAuteur.php'));
 require_once File::build_path(array('model', 'ModelEditeur.php'));
 require_once File::build_path(array('model', 'ModelCategorie.php'));
 
-class controllerEditeur
+class controllerCategorie
 {
-    protected static $object = 'editeur';
+    protected static $object = 'categorie';
 
     public static function readAll() {
         $view = 'list';
@@ -15,7 +15,7 @@ class controllerEditeur
 
     public static function read()
     {
-        $auteur = ModelEditeur::select($_GET['numEditeur']);
+        $auteur = ModelCategorie::select($_GET['numCategorie']);
         $view = 'detail';
         require File::build_path(array('view', 'view.php'));
     }
@@ -29,14 +29,14 @@ class controllerEditeur
 
     public static function delete()
     {
-        ModelEditeur::delete();
+        ModelCategorie::delete();
         self::readAll();
     }
 
     public static function created()
     {
-        $data = array('nomEditeur' => $_POST['nomEditeur']);
-        ModelEditeur::saveGen($data);
+        $data = array('nomCategorie' => $_POST['nomCategorie']);
+        ModelCategorie::saveGen($data);
         self::readAll();
     }
 }
