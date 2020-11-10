@@ -1,6 +1,8 @@
 <?php
 require_once File::build_path(array('model', 'ModelUtilisateur.php'));
 require_once File::build_path(array('model', 'ModelItemPanier.php'));
+require_once File::build_path(array('model', 'ModelCommande.php'));
+require_once File::build_path(array('model', 'ModelBook.php'));
 
 class ControllerUtilisateur {
 
@@ -167,6 +169,49 @@ class ControllerUtilisateur {
         require File::build_path(array('view', 'view.php'));
     }
 
+    public static function acheterPanier()
+    {
+        if (!isset($_SESSION['login']))
+        {
+            echo "Vous devez d'abord vous connecter !";
+            self::login();
+        } else
+        {
+            $view = 'valideAchat';
+            require File::build_path(array('view', 'view.php'));
+        }
+    }
+
+    public static function acheterPanier_end()
+    {
+        if (!isset($_SESSION['login']))
+        {
+            echo "Vous devez d'abord vous connecter !";
+            self::login();
+        } else
+        {
+            if (!empty(unserialize($_COOKIE['panier'], ["allowed_classes" => true])))
+            {
+                $data = array(
+                    'login' => $_SESSION['login'],
+                    'date' => date("y-m-j")
+                );
+                ModelCommande::saveCommande($data);
+            }
+            $panier = unserialize($_COOKIE['panier'], ["allowed_classes" => true]);
+            foreach ($panier as $item)
+            {
+                $data = array(
+                    'isbn' => $item->get('isbn'),
+                    'quantite' => $item->get('quantite'),
+                );
+                ModelCommande::saveBookCommande($data);
+                ModelBook::updateStock($item->get('isbn'), $item->get('quantite'));
+            }
+            self::clearPanier();
+        }
+    }
+
     public static function findObjectById($id, $array){
         foreach ($array as $element ) {
             if ( $id == $element->get('isbn')) {
@@ -175,7 +220,6 @@ class ControllerUtilisateur {
         }
         return false;
     }
-
 }
 ?>
 

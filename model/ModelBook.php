@@ -8,6 +8,7 @@ class ModelBook extends Model
     private $numEditeur;
     private $prix;
     private $dateParution;
+    private $stock;
 
     protected static $object = 'book';
     protected static $primary = 'isbn';
@@ -24,13 +25,14 @@ class ModelBook extends Model
         return false;
     }
 
-    public function __construct($isbn = NULL, $titre = NULL, $numEditeur = NULL, $prix = NULL, $dateParution = NULL) {
-        if (!is_null($isbn) && !is_null($titre) && !is_null($numEditeur) && !is_null($prix) && !is_null($dateParution)) {
+    public function __construct($isbn = NULL, $titre = NULL, $numEditeur = NULL, $prix = NULL, $dateParution = NULL, $stock = NULL) {
+        if (!is_null($isbn) && !is_null($titre) && !is_null($numEditeur) && !is_null($prix) && !is_null($dateParution) && !is_null($stock)) {
             $this->isbn = $isbn;
             $this->titre = $titre;
             $this->numEditeur = $numEditeur;
             $this->prix = $prix;
             $this->dateParution = $dateParution;
+            $this->stock = $stock;
         }
     }
 
@@ -69,7 +71,7 @@ class ModelBook extends Model
             FROM book b 
             JOIN bookAuteur bA ON b.isbn = bA.isbn 
             JOIN auteur a ON a.numAuteur = bA.numAuteur
-            WHERE prenomAuteur LIKE "%'.$query.'%" 
+            WHERE prenomAuteur LIKE "%'.$query.'%"
             OR nomAuteur LIKE "%'.$query.'%"');
             $book->setFetchMode(PDO::FETCH_CLASS, "modelBook");
             $books = $book->fetchAll();
@@ -77,7 +79,7 @@ class ModelBook extends Model
             return $books;
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
-                echo $e->getMessage(); // affiche un message d'erreur
+                echo $e->getMessage();
             } else {
                 echo 'Une erreur est survenue <a href="index.php"> retour a la page d\'accueil </a>';
             }
@@ -128,6 +130,23 @@ class ModelBook extends Model
             }
             else {
                 echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+
+    public static function updateStock($isbn, $quantite)
+    {
+        try {
+            $sql = "UPDATE book SET stock = stock - $quantite WHERE isbn = :primary_key;";
+            $req = Model::$pdo->prepare($sql);
+            $values = array('primary_key' => $isbn);
+            $req -> execute($values);
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo 'Une erreur est survenue <a href="index.php"> retour a la page d\'accueil </a>';
             }
             die();
         }
