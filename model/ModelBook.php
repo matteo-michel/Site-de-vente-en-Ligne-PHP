@@ -73,6 +73,7 @@ class ModelBook extends Model
             JOIN auteur a ON a.numAuteur = bA.numAuteur
             WHERE prenomAuteur LIKE "%'.$query.'%"
             OR nomAuteur LIKE "%'.$query.'%"');
+
             $book->setFetchMode(PDO::FETCH_CLASS, "modelBook");
             $books = $book->fetchAll();
             if(empty($books))return false;

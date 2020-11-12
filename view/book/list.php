@@ -21,7 +21,7 @@
         $q_array = explode(' ', $_POST['search']);
         $tab = array();
         foreach ($q_array as $q) {
-            $listNewBook = ModelBook::getBookByAutors($q_array);
+            $listNewBook = ModelBook::getBookByAutors($q);
             if (empty($listNewBook)) echo "Il n’y a aucun résultat pour votre recherche. Vérifiez l’orthographe des mots saisis, complétez-les par un nouveau mot clé ou désactivez les filtres actifs";
             else {
                 foreach ($listNewBook as $nb) {
