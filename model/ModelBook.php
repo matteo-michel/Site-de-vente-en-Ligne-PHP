@@ -151,4 +151,39 @@ class ModelBook extends Model
             die();
         }
     }
+
+    public static function getAmount() {
+        try {
+            $sql = "SELECT COUNT(*) FROM book";
+            $req = Model::$pdo -> query($sql);
+            $data = $req->fetchAll();
+            return $data[0][0];
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo 'Une erreur est survenue <a href="index.php"> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+
+    public static function selectAmount($order_by, $start,$amount)
+    {
+        $table_name = static::$object;
+        $class_name = 'Model' . ucfirst($table_name);
+        try {
+            $rep = Model::$pdo -> query("SELECT * FROM (SELECT * FROM $table_name $order_by) AS trie LIMIT $start,$amount;");
+            $rep->setFetchMode(PDO::FETCH_CLASS, "$class_name");
+            $tab_obj = $rep->fetchAll();
+            return $tab_obj;
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
 }

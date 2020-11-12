@@ -44,6 +44,7 @@ class   Model {
       }
   }
 
+
   public static function saveGen($data)
   {
     $table_name = static::$object;

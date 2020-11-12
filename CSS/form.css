@@ -1,0 +1,21 @@
+.content {
+    margin: auto;
+}
+
+.login{
+    display: block;
+    padding: 20px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    /*height: 200px;*/
+    width: 500px;
+    background: #fafafa;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2)
+}
+
+.login>fieldset {
+    padding: 8px 3px;
+}
