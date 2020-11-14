@@ -15,8 +15,8 @@
 
             echo '<p> Auteurs : '. $resultAuteur .'</p>';
             echo '<p> Livre de numéro : <a href="index.php?action=read&isbn=' . rawurlencode($bISBN) . '">' . htmlspecialchars($bISBN) . '</a>'. " " . $livre->get('titre') . '</p>';
-            echo '<p> Quantité : '. $t->get('quantite') . '€' .'</p>';
-            echo '<p> Prix : '. $livre->get('prix')*$t->get('quantite') . '</p>';
+            echo '<p> Quantité : '. $t->get('quantite') .'</p>';
+            echo '<p> Prix : '. $livre->get('prix')*$t->get('quantite') . '€' .  '</p>';
 
             echo "<p><a href=\"index.php?controller=utilisateur&action=removeFromPanier&isbn=" . rawurlencode($bISBN) . "\">Supprimer du panier</a></p>";
             $compteurPrix = $compteurPrix + ($livre->get('prix')*$t->get('quantite'));

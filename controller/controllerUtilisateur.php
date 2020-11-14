@@ -4,6 +4,7 @@ require_once File::build_path(array('model', 'ModelItemPanier.php'));
 require_once File::build_path(array('model', 'ModelCommande.php'));
 require_once File::build_path(array('model', 'ModelBook.php'));
 
+
 class ControllerUtilisateur {
 
 	protected static $object = 'utilisateur';

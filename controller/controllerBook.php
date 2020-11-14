@@ -3,6 +3,7 @@ require_once File::build_path(array('model', 'ModelBook.php'));
 require_once File::build_path(array('model', 'ModelAuteur.php'));
 require_once File::build_path(array('model', 'ModelEditeur.php'));
 require_once File::build_path(array('model', 'ModelCategorie.php'));
+require_once File::build_path(array('model', 'ModelListeEnvie.php'));
 
 class controllerBook
 {
@@ -54,5 +55,20 @@ class controllerBook
             ModelBook::saveBookCategorie($data);
         }
         self::readAll();
+    }
+
+    public static function ajouterListeEnvie(){
+        $isbn = $_GET['isbn'];
+        $login = $_SESSION['login'];
+        ModelListeEnvie::ajouter($login, $isbn);
+        header('Location: index.php');
+    }
+
+    public static function listeEnvie()
+    {
+        $tab = ModelListeEnvie::select($_SESSION['login']);
+        $view = 'listEnvie';
+        require File::build_path(array('view', 'view.php'));
+
     }
 }

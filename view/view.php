@@ -55,7 +55,8 @@
 
                     echo "<ul class=\"nav navbar-nav navbar-right\">
                       <li class=\"nav-item\"><a href=\"index.php?controller=utilisateur&action=panier\" class=\"nav-link\"><i class=\"fas fa-shopping-cart\"></i> Mon panier</a></li>
-                      <li><a href=\"index.php?controller=utilisateur&action=profile\" class=\"nav-link\"><i class=\"fas fa-user\"></i> Mon profile</a></li>
+                      <li class=\"nav-item\"><a href=\"index.php?controller=book&action=listeEnvie\" class=\"nav-link\"><i class=\"fas fa-gift\"></i> Ma liste d'envie</a></li>
+                      <li><a href=\"index.php?controller=utilisateur&action=profile\" class=\"nav-link\"><i class=\"fas fa-user\"></i> Mon profil</a></li>
                       <li><a href=\"index.php?controller=utilisateur&action=logout\" class=\"nav-link\"><i class=\"fas fa-sign-out-alt\"></i> Deconnexion</a></li>
                       </ul>";
                 }

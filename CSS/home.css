@@ -10,7 +10,7 @@
     box-sizing: border-box;
 }
 
-.panier .btn {
+.panier .btn-primary {
     background-color: #3498db;
     border-color: #3498db;
     border-radius: 5px;
@@ -18,9 +18,23 @@
     position: relative;
 }
 
-.panier .btn:hover {
+.panier .btn-primary:hover {
     background-color: #018be7;
     border-color: #018be7;
+}
+
+.panier .btn-warning {
+    background-color: #ff7675;
+    border-color: #ff7675;
+    border-radius: 5px;
+    display: block;
+    position: relative;
+    color: white;
+}
+
+.panier .btn-warning:hover {
+    background-color: #d45655;
+    border-color: #d45655;
 }
 
 .panier {
@@ -55,4 +69,8 @@ img {
     background-color: #ecf0f1;
     padding: 10px;
     margin: auto;
+}
+
+#stock {
+    font-size: 1.1em;
 }
