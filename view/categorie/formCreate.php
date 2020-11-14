@@ -1,17 +1,17 @@
-<form method="post" action="index.php?controller=categorie">
+<form method="post" action="index.php?controller=categorie" class="login">
     <fieldset>
-        <legend>Ajouter une Catégorie:</legend>
-        <p>
+        <legend>Ajouter une Catégorie :</legend>
+        <div class="form-group">
             <?php $controller = static::$object; ?>
 
             <input type='hidden' name='action' value='<?php echo $name ?>'>
 
-            <label for="nomCategorie_id">nom categorie</label> :
+            <label for="nomCategorie_id">Nom catégorie</label> :
             <input type="text"  name="nomCategorie" id="nomCategorie_id" required/>
 
-        </p>
-        <p>
-            <input type="submit" value="Envoyer" />
-        </p>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">Envoyer</button>
+        </div>
     </fieldset>
 </form>

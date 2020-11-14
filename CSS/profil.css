@@ -55,12 +55,12 @@ h6 {
     line-height: 25px
 }
 
-@media only screen and (min-width: 1400px) {
-    p {
-        font-size: 14px
-    }
-}
+/*@media only screen and (min-width: 1400px) {*/
+/*}*/
 
+p {
+    font-size: 14px
+}
 .card-block {
     padding: 1.25rem
 }

@@ -1,20 +1,21 @@
-<form method="post" action="index.php?controller=auteur">
+<form method="post" action="index.php?controller=auteur" class="login">
     <fieldset>
-        <legend>Ajouter un Auteur:</legend>
-        <p>
+        <legend>Ajouter un Auteur :</legend>
+        <div class="form-group">
             <?php $controller = static::$object; ?>
-
             <input type='hidden' name='action' value='<?php echo $name ?>'>
-
-            <label for="prenomAuteur_id">prenom auteur</label> :
+        </div>
+        <div class="form-group">
+            <label for="prenomAuteur_id">Prénom auteur</label> :
             <input type="text"  name="prenomAuteur" id="prenomAuteur_id" required/>
-
-            <label for="nomAuteur_id">nom auteur</label> :
+        </div>
+        <div class="form-group">
+            <label for="nomAuteur_id">Nom auteur</label> :
             <input type="text"  name="nomAuteur" id="nomAuteur_id" required/>
+        </div>
 
-        </p>
-        <p>
-            <input type="submit" value="Envoyer" />
-        </p>
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">Envoyer</button>
+        </div>
     </fieldset>
 </form>

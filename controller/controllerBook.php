@@ -58,10 +58,14 @@ class controllerBook
     }
 
     public static function ajouterListeEnvie(){
-        $isbn = $_GET['isbn'];
-        $login = $_SESSION['login'];
-        ModelListeEnvie::ajouter($login, $isbn);
-        header('Location: index.php');
+        if(!isset($_SESSION['login']))
+            controllerUtilisateur::login();
+        else {
+            $isbn = $_GET['isbn'];
+            $login = $_SESSION['login'];
+            ModelListeEnvie::ajouter($login, $isbn);
+            header('Location: index.php');
+        }
     }
 
     public static function listeEnvie()
