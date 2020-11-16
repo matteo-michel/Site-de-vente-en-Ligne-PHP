@@ -31,7 +31,12 @@ class ControllerUtilisateur {
             session_destroy();
             echo "Mauvais mot de passe";
             self::login();
-        } else {
+        }
+        elseif (!is_null($user->get('nonce'))) {
+            session_destroy();
+            echo "Email non vérifié";
+            self::login();
+        }else {
             $_SESSION['login'] = $login;
             $user = ModelUtilisateur::select($login);
             $_SESSION['isAdmin'] = $user->get('isAdmin');
@@ -116,6 +121,15 @@ class ControllerUtilisateur {
             }
         } else {
             self::login();
+        }
+    }
+
+    public static function validate(){
+        $user = modelUtilisateur::testLogin($_GET['login']);
+        if($user != false && ($_GET['nonce'] == $user->get('nonce')))
+        {
+            $login_utilisateur = $user->get('login');
+            Model::$pdo->query("UPDATE utilisateur SET nonce = NULL WHERE login = '$login_utilisateur'");
         }
     }
 
