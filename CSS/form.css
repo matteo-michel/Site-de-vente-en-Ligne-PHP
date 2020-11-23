@@ -21,6 +21,7 @@
     top: auto;
     left: auto;
     transform: none;
+    overflow: auto;
 }
 
 .login>fieldset {
