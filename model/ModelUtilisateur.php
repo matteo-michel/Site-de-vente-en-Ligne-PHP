@@ -9,6 +9,7 @@ class modelUtilisateur extends Model {
     private $password;
     private $email;
     private $isAdmin;
+    private $nonce;
 
     protected static $object = 'utilisateur';
     protected static $primary = 'login';
@@ -56,6 +57,28 @@ class modelUtilisateur extends Model {
         }
         die();
       }
+    }
+    public static function sendMail($login,$destinataire,$nonce)
+    {
+        $subject = 'Email de vérification Book\'Sell';
+        $mail_link = 'http://localhost/ProjetPHP/index.php?controller=utilisateur&action=validate&login='.$login.'&nonce='.$nonce;
+        $message =
+            '<html>
+                <body>
+                    <strong>Bonjour,</strong>
+                    <p>Votre inscription est presque terminée ! Confirmez votre adresse email en cliquant sur le lien ci-dessous :</p>
+                        <a href="'.$mail_link.'" style="background-color: rgb(64,178,181); width: 250px; border: 1px solid rgb(64,178,181);border-radius: 4px; color: rgb(255, 255, 255); display: inline-block;">
+                            Confirmer mon adresse email
+                        </a>
+                    <p>Si vous ne visualisez pas le bouton ci-dessus, veuillez cliquer <a href="'.$mail_link.'">içi</a></p>
+                </body>
+                </html>';
+
+        $headers[] = 'MIME-Version: 1.0';
+        $headers[] = 'Content-type: text/html; charset=utf8';
+        $headers[] = 'From: Book\'Sell <BookSell@gmail.com>';
+
+        mail($destinataire, $subject, $message, implode("\r\n", $headers));
     }
 
 }

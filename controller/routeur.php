@@ -7,6 +7,7 @@ require_once File::build_path(array('controller','controllerEditeur.php'));
 require_once File::build_path(array('controller','controllerCommande.php'));
 require_once File::build_path(array('controller','controllerListeEnvie.php'));
 require_once File::build_path(array('controller','controllerPanier.php'));
+require_once File::build_path(array('lib','Security.php'));
 
 
 if (!isset($_GET['controller']))

@@ -22,14 +22,18 @@ class ControllerUtilisateur {
     {
         if(isset($_POST['isAdmin'])) $admin = 1;
         else $admin = 0;
+        $nonce = Security::generateRandomHex();
+        $login = $_POST['login'];
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $data = array(
             'password' => $password,
             'email' => $_POST['email'],
             'nom' => $_POST['nom'],
             'prenom' => $_POST['prenom'],
-            'isAdmin' => $admin);
+            'isAdmin' => $admin,
+            'nonce' => $nonce);
         ModelUtilisateur::saveGen($data);
+        ModelUtilisateur::sendMail($login,$_POST['email'],$nonce);
         self::readAll();
 
     }
@@ -58,7 +62,7 @@ class ControllerUtilisateur {
         }else {
             $_SESSION['login'] = $login;
             $user = ModelUtilisateur::select($login);
-            $_SESSION['isAdmin'] = $user->get('isAdmin');
+            $_SESSION['isAdmin'] = $user[0]->get('isAdmin');
             header('Location: index.php');
         }
     }
@@ -127,7 +131,9 @@ class ControllerUtilisateur {
             $login_utilisateur = $user->get('login');
             Model::$pdo->query("UPDATE utilisateur SET nonce = NULL WHERE login = '$login_utilisateur'");
         }
+        self::login();
     }
+
 }
 
 
