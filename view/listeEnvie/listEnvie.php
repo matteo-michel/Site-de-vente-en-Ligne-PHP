@@ -23,9 +23,9 @@ foreach ($tab as $u){
     {
         echo '<p id="stock"> Rupture de stock </p>';
     } else {
-        echo "<a class='btn btn-primary' role='button' href=\"index.php?controller=utilisateur&action=addPanier&isbn=" . rawurlencode($bISBN) . "\"><i class=\"fas fa-shopping-basket\"></i>  Ajouter au panier</a>";
+        echo "<a class='btn btn-primary' role='button' href=\"index.php?controller=panier&action=create&isbn=" . rawurlencode($bISBN) . "\"><i class=\"fas fa-shopping-basket\"></i>  Ajouter au panier</a>";
     }
-        echo "<a class='btn btn-warning' role='button' href=\"index.php?controller=book&action=removeListeEnvie&isbn=" . rawurlencode($bISBN) . "\"><i class=\"fas fa-times\"></i>  Supprimer de la liste d'envie</a>";
+        echo "<a class='btn btn-warning' role='button' href=\"index.php?controller=listeEnvie&action=delete&isbn=" . rawurlencode($bISBN) . "\"><i class=\"fas fa-times\"></i>  Supprimer de la liste d'envie</a>";
     echo '</div>';
     echo '</div>';
 }

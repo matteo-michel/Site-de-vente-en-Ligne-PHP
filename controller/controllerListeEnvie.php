@@ -23,7 +23,7 @@ class controllerListeEnvie
         $isbn = $_GET['isbn'];
         $login = $_SESSION['login'];
         ModelListeEnvie::supprimer($login, $isbn);
-        header('Location: index.php?controller=book&action=listeEnvie');
+        header('Location: index.php?controller=listeEnvie');
     }
 
 }

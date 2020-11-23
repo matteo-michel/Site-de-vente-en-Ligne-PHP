@@ -1,7 +1,7 @@
 <?php
-$login = $_SESSION['login'];
 $user = modelUtilisateur::select($login)[0];
 ($user->get('isAdmin') == 1)? $admin = 'Administrateur': $admin = 'Utilisateur';
+($testAdmin)? $pronom = 'le': $pronom = 'mon';
 echo '
 <div class="page-content page-container" id="page-content">
     <div class="padding">
@@ -33,11 +33,11 @@ echo '
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <a href="index.php?controller=utilisateur&action=update">
-                                        <h6 class="text-muted f-w-400">Modifier mon profil</h6></a>
+                                        <h6 class="text-muted f-w-400">Modifier ' . $pronom . ' profil</h6></a>
                                     </div>
                                     <div class="col-sm-6">
-                                        <a href=index.php?controller=utilisateur&action=delete&login=' . $user->get('login') . '">
-                                        <h6 class="text-muted f-w-400">Supprimer mon profil</h6></a>
+                                        <a href="index.php?controller=utilisateur&action=delete&login=' . $user->get('login') . '">
+                                        <h6 class="text-muted f-w-400">Supprimer ' . $pronom . ' profil</h6></a>
                                     </div>
                                 </div>
                             </div>

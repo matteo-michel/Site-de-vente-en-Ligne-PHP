@@ -1,4 +1,5 @@
 <?php
+$tab = array_reverse($tab);
 foreach ($tab as $u) {
     $listeBookByNumCommande = ModelBookCommande::select($u->get('numCommande'));
     echo '<p>Pour la date du ' . $u->get('date') . '</p>';

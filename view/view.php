@@ -17,19 +17,6 @@
         <nav class="navbar navbar-expand navbar-dark bg-dark">
             <ul class="navbar-nav mr-auto">
             <a href="index.php" class="navbar-brand">Book'Sell</a>
-<!--            <ul class="nav navbar-nav navbar-form">-->
-<!--                <form method="post" action="index.php">-->
-<!--                    <select name="book" id="book_id">-->
-<!--                        <option value="">--Trier les livres--</option>-->
-<!--                        <option value="isbn">numéro ISBN</option>-->
-<!--                        <option value="titre">Titre</option>-->
-<!--                        <option value="prix">Prix</option>-->
-<!--                        <option value="dateParution">date de Parution</option>-->
-<!--                    </select>-->
-<!--                    <input type="text" name="search">-->
-<!--                    <input type="submit" value="Rechercher">-->
-<!--                </form>-->
-<!--            </ul>-->
                 <?php
                 if (!isset($_SESSION['login'])) {
                     echo "</ul>";
@@ -40,7 +27,8 @@
                       </ul>";
                 } else
                 {
-                    echo "<li class = \"nav-item dropdown\">
+                    if ($_SESSION['isAdmin'] == 1) {
+                        echo "<li class = \"nav-item dropdown\">
                         <a class=\"nav-link dropdown-toggle\" href\"#\" id=\"navbarDropdownMenuLink\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">
                           <i class=\"fas fa-tachometer-alt\"></i> Panel Administrateur
                          </a>
@@ -51,8 +39,9 @@
                           <a class=\"dropdown-item\" href=\"index.php?controller=auteur\">Liste d'auteur</a>
                           <a class=\"dropdown-item\" href=\"index.php?action=create\">Ajouter un livre</a>
                         </div></li>";
-                    echo "</ul>";
 
+                    }
+                    echo "</ul>";
                     echo "<ul class=\"nav navbar-nav navbar-right\">
                       <li class=\"nav-item\"><a href=\"index.php?controller=panier\" class=\"nav-link\"><i class=\"fas fa-shopping-cart\"></i> Mon panier</a></li>
                       <li class=\"nav-item\"><a href=\"index.php?controller=listeEnvie\" class=\"nav-link\"><i class=\"fas fa-gift\"></i> Ma liste d'envie</a></li>

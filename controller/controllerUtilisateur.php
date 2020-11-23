@@ -77,6 +77,15 @@ class ControllerUtilisateur {
     public static function profile()
     {
         if(isset($_SESSION['login'])) {
+            if ($_SESSION['isAdmin'] == 1 && isset($_GET['login']))
+            {
+                $login = $_GET['login'];
+                $testAdmin = true;
+            } else
+            {
+                $login = $_SESSION['login'];
+                $testAdmin = false;
+            }
             $view = 'profile';
             require File::build_path(array('view','view.php'));
         } else {

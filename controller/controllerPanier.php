@@ -2,6 +2,7 @@
 require_once File::build_path(array('model', 'ModelItemPanier.php'));
 require_once File::build_path(array('model', 'ModelCommande.php'));
 require_once File::build_path(array('model', 'ModelBook.php'));
+require_once File::build_path(array('model', 'ModelBookCommande.php'));
 
 class controllerPanier
 {
@@ -47,14 +48,14 @@ class controllerPanier
         }
         unset($_COOKIE['panier']);
         setcookie('panier', serialize($panier), time() + 3600);
-        header('Location: index.php?controller=utilisateur&action=panier');
+        header('Location: index.php?controller=panier');
     }
 
     public static function clear() {
         if(isset($_COOKIE['panier'])) {
             setcookie("panier", "", time() - 3600);
         }
-        header('Location: index.php?controller=utilisateur&action=panier');
+        header('Location: index.php?controller=panier');
     }
 
     public static function acheterPanier()
@@ -93,10 +94,10 @@ class controllerPanier
                     'isbn' => $item->get('isbn'),
                     'quantite' => $item->get('quantite'),
                 );
-                ModelCommande::saveBookCommande($data);
+                ModelBookCommande::saveBookCommande($data);
                 ModelBook::updateStock($item->get('isbn'), $item->get('quantite'));
             }
-            self::clearPanier();
+            self::clear();
         }
     }
 
