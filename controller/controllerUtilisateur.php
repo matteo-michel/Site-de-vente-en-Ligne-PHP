@@ -88,7 +88,7 @@ class ControllerUtilisateur {
         if(isset($_SESSION['login'])) {
             $view = 'update';
             $name = 'updated';
-            $user = modelUtilisateur::select($_SESSION['login']);
+            $user = modelUtilisateur::select($_SESSION['login'])[0];
             require File::build_path(array('view','view.php'));
         } else {
             self::login();

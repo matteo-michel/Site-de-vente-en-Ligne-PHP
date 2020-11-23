@@ -1,6 +1,6 @@
 <form method="post" action="index.php">
 <fieldset>
-<legend>Modifer voiture :</legend>
+<legend>Modifer Mon profil :</legend>
     <input type='hidden' name='action' value='<?php echo $name ?>'>
 
     <label for="login_id">Login</label> :

@@ -32,11 +32,11 @@ echo '
                                 <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Modifications</h6>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <a href="index.php?action=update">
+                                        <a href="index.php?controller=utilisateur&action=update">
                                         <h6 class="text-muted f-w-400">Modifier mon profil</h6></a>
                                     </div>
                                     <div class="col-sm-6">
-                                        <a href=index.php?action=delete&login=' . $user->get('login') . '">
+                                        <a href=index.php?controller=utilisateur&action=delete&login=' . $user->get('login') . '">
                                         <h6 class="text-muted f-w-400">Supprimer mon profil</h6></a>
                                     </div>
                                 </div>
