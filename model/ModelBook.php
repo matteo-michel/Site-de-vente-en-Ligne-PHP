@@ -44,18 +44,15 @@ class ModelBook extends Model
             JOIN auteur a ON a.numAuteur = ba.numAuteur
             WHERE :search";
             $req_prep = Model::$pdo->prepare($sql);
-
             $values = array("search" => $search);
             $req_prep->execute($values);
             $req_prep->setFetchMode(PDO::FETCH_CLASS, "ModelAuteur");
             $tab=$req_prep->fetchAll();
-
             if(empty($tab))return false;
             return $tab;
-
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
-                echo $e->getMessage(); // affiche un message d'erreur
+                echo $e->getMessage();
             } else {
                 echo 'Une erreur est survenue <a href="index.php"> retour a la page d\'accueil </a>';
             }
@@ -101,11 +98,7 @@ class ModelBook extends Model
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();
-            } else if ($e->getCode() == 23000){
-                echo "Erreur";
-                return false;
-            }
-            else {
+            } else {
                 echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
             }
             die();
@@ -125,11 +118,7 @@ class ModelBook extends Model
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();
-            } else if ($e->getCode() == 23000){
-                echo "Erreur";
-                return false;
-            }
-            else {
+            } else {
                 echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
             }
             die();
@@ -180,7 +169,7 @@ class ModelBook extends Model
             return $tab_obj;
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
-                echo $e->getMessage(); // affiche un message d'erreur
+                echo $e->getMessage();
             } else {
                 echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
             }

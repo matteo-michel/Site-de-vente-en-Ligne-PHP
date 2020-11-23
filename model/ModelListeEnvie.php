@@ -48,7 +48,23 @@ class ModelListeEnvie extends Model
         }
     }
 
-    public static function select($primary_value)
+    public static function supprimer($login, $isbn) {
+        try {
+            $sql = "DELETE FROM listeEnvie WHERE login = :login AND isbn = :isbn;";
+            $req = Model::$pdo->prepare($sql);
+            $value = array('login' => $login, 'isbn' => $isbn);
+            $req->execute($value);
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo 'Une erreur est survenue <a href="index.php"> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+
+    public static function selectListeEnvie($primary_value)
     {
         try {
             $sql="SELECT * from listeEnvie WHERE login =:nom_tag";
@@ -72,4 +88,6 @@ class ModelListeEnvie extends Model
             die();
         }
     }
+
+
 }

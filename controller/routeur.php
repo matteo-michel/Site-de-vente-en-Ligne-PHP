@@ -4,6 +4,9 @@ require_once File::build_path(array('controller','controllerBook.php'));
 require_once File::build_path(array('controller','controllerAuteur.php'));
 require_once File::build_path(array('controller','controllerCategorie.php'));
 require_once File::build_path(array('controller','controllerEditeur.php'));
+require_once File::build_path(array('controller','controllerCommande.php'));
+require_once File::build_path(array('controller','controllerListeEnvie.php'));
+require_once File::build_path(array('controller','controllerPanier.php'));
 
 
 if (!isset($_GET['controller']))

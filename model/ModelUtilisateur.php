@@ -50,7 +50,7 @@ class modelUtilisateur extends Model {
         return$tab_voit[0];
       } catch (PDOException $e) {
         if (Conf::getDebug()) {
-          echo $e->getMessage(); // affiche un message d'erreur
+          echo $e->getMessage();
         } else {
           echo 'Une erreur est survenue <a href="index.php"> retour a la page d\'accueil </a>';
         }

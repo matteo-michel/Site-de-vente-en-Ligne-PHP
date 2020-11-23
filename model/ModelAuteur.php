@@ -33,18 +33,15 @@ class ModelAuteur extends Model {
         try {
             $sql= "SELECT nomAuteur, prenomAuteur from auteur a JOIN bookAuteur b ON a.numAuteur = b.numAuteur WHERE b.isbn = :isbn";
             $req_prep = Model::$pdo->prepare($sql);
-
             $values = array("isbn" => $isbn);
             $req_prep->execute($values);
             $req_prep->setFetchMode(PDO::FETCH_CLASS, "ModelAuteur");
             $tab=$req_prep->fetchAll();
-
-            if(empty($tab))return false;
+            if(empty($tab)) return false;
             return $tab;
-
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
-                echo $e->getMessage(); // affiche un message d'erreur
+                echo $e->getMessage();
             } else {
                 echo 'Une erreur est survenue <a href="index.php"> retour a la page d\'accueil </a>';
             }

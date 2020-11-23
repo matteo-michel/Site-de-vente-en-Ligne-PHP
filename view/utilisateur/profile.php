@@ -1,11 +1,6 @@
-<!--$login = $_SESSION['login'];
-$user = modelUtilisateur::select($login);
-echo $user->get('login') . " | " . $user->get('nom') . " | " . $user->get('prenom') . " | " . $user->get('email');
-echo "<a href=\"index.php?action=update\">Modifier mon profil</a>";
-echo "<a href=\"index.php?action=delete&login=" . $user->get('login') . "\">Supprimer le compte</a>";-->
 <?php
 $login = $_SESSION['login'];
-$user = modelUtilisateur::select($login);
+$user = modelUtilisateur::select($login)[0];
 ($user->get('isAdmin') == 1)? $admin = 'Administrateur': $admin = 'Utilisateur';
 echo '
 <div class="page-content page-container" id="page-content">
@@ -37,10 +32,12 @@ echo '
                                 <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Modifications</h6>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <h6 class="text-muted f-w-400">Modifier mon profil</h6>
+                                        <a href="index.php?action=update">
+                                        <h6 class="text-muted f-w-400">Modifier mon profil</h6></a>
                                     </div>
                                     <div class="col-sm-6">
-                                        <h6 class="text-muted f-w-400">Supprimer mon profil</h6>
+                                        <a href=index.php?action=delete&login=' . $user->get('login') . '">
+                                        <h6 class="text-muted f-w-400">Supprimer mon profil</h6></a>
                                     </div>
                                 </div>
                             </div>

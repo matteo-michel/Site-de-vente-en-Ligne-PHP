@@ -36,7 +36,7 @@ class   Model {
         return $tab_obj;
       } catch (PDOException $e) {
         if (Conf::getDebug()) {
-          echo $e->getMessage(); // affiche un message d'erreur
+          echo $e->getMessage();
         } else {
           echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
         }
@@ -44,6 +44,34 @@ class   Model {
       }
   }
 
+    public static function select($primary_value)
+    {
+        $table_name = static::$object;
+        $class_name = 'Model' . ucfirst($table_name);
+        $primary_key = static::$primary;
+
+        try {
+            $sql="SELECT * from $table_name WHERE $primary_key=:nom_tag";
+
+            $req_prep = Model::$pdo->prepare($sql);
+            $values = array("nom_tag" => $primary_value);
+
+            $req_prep->execute($values);
+
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, "$class_name");
+            $tab = $req_prep->fetchAll();
+
+            if(empty($tab)) return false;
+            return $tab;
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo 'Une erreur est survenue <a href="index.php"> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
 
   public static function saveGen($data)
   {
@@ -71,42 +99,12 @@ class   Model {
           echo $e->getMessage();
         } else if ($e->getCode() == 23000){
           echo "Ce login utilisateur existe déjà !";
-          return false;
         }
         else {
           echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
         }
         die();
     }
-  }
-
-  public static function select($primary_value)
-  {
-    $table_name = static::$object;
-    $class_name = 'Model' . ucfirst($table_name);
-    $primary_key = static::$primary;
-
-    try {
-        $sql="SELECT * from $table_name WHERE $primary_key=:nom_tag";
-
-        $req_prep = Model::$pdo->prepare($sql);
-        $values = array("nom_tag" => $primary_value);
-
-        $req_prep->execute($values);
-
-        $req_prep->setFetchMode(PDO::FETCH_CLASS, "$class_name");
-        $tab = $req_prep->fetchAll();
-
-        if(empty($tab)) return false;
-        return $tab[0];
-      } catch (PDOException $e) {
-        if (Conf::getDebug()) {
-          echo $e->getMessage();
-        } else {
-          echo 'Une erreur est survenue <a href="index.php"> retour a la page d\'accueil </a>';
-        }
-        die();
-      }
   }
 
   public static function update($data) {
@@ -129,7 +127,7 @@ class   Model {
       
     } catch (PDOException $e) {
       if (Conf::getDebug()) {
-        echo $e->getMessage(); // affiche un message d'erreur
+        echo $e->getMessage();
       } else {
         echo 'Une erreur est survenue <a href="index.php"> retour a la page d\'accueil </a>';
       }
@@ -152,7 +150,7 @@ class   Model {
 
     } catch (PDOException $e) {
       if (Conf::getDebug()) {
-        echo $e->getMessage(); // affiche un message d'erreur
+        echo $e->getMessage();
       } else {
         echo 'Une erreur est survenue <a href="index.php"> retour a la page d\'accueil </a>';
       }
@@ -163,5 +161,5 @@ class   Model {
 }
 
 Model::Init();
-?>
+
 

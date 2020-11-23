@@ -20,17 +20,17 @@ class controllerAuteur
         require File::build_path(array('view', 'view.php'));
     }
 
+    public static function delete()
+    {
+        ModelAuteur::delete();
+        self::readAll();
+    }
+
     public static function create()
     {
         $view = 'formCreate';
         $name = 'created';
         require File::build_path(array('view', 'view.php'));
-    }
-
-    public static function delete()
-    {
-        ModelAuteur::delete();
-        self::readAll();
     }
 
     public static function created()
@@ -40,5 +40,10 @@ class controllerAuteur
             'nomAuteur' => $_POST['nomAuteur']);
         ModelAuteur::saveGen($data);
         self::readAll();
-    }   
+    }
+
+    public static function update()
+    {
+        $a = 'yousk2';
+    }
 }

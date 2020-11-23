@@ -39,4 +39,9 @@ class controllerCategorie
         ModelCategorie::saveGen($data);
         self::readAll();
     }
+
+    public static function update()
+    {
+        $a = 'yousk2';
+    }
 }
