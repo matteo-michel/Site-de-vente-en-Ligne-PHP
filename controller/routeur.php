@@ -23,7 +23,6 @@ if(!isset($_GET['action']) && !isset($_POST['action']))
 	$action = $_GET['action'];
 } else {
 	$action = $_POST['action'];
-	if (in_array($action, get_class_methods('controllerUtilisateur'))) $controller = 'utilisateur';
 }
 
 $controller_class = 'controller'. ucfirst($controller);

@@ -125,6 +125,114 @@ class ModelBook extends Model
         }
     }
 
+    public static function updateBookAuteur($isbn,$data)
+    {
+        try {
+            //creer une liste d'auteur liee au livre
+            $sql = "SELECT numAuteur FROM bookAuteur WHERE isbn=:primary_key";
+            $req_prep = Model::$pdo->prepare($sql);
+            $values = array("primary_key"=>$isbn);
+            $req_prep->execute($values);
+            $req_prep->setFetchMode(PDO::FETCH_NUM);
+            $tab_auteur=$req_prep->fetchAll();
+
+            // convertit en tableau de string simple
+            $array = array();
+            foreach ($tab_auteur as $value){
+                $array[] = $value[0];
+            }
+            $tab_auteur = $array;
+
+            //ajoute les nouvelles entree inexistantes
+            foreach ($data as $value) {
+                if(!in_array($value,$tab_auteur)) {
+                    $sql = "INSERT INTO bookAuteur VALUES (:primary_key, :second_primary_key)";
+                    $req_prep = Model::$pdo->prepare($sql);
+                    $values = array(
+                        "primary_key"=>$isbn,
+                        "second_primary_key"=> $value
+                    );
+                    $req_prep->execute($values);
+                }
+            }
+
+            //supprime les tuples obsolete
+            foreach ($tab_auteur as $value) {
+
+                if(!in_array($value,$data)) {
+                    $sql = "DELETE FROM bookAuteur WHERE isbn=:primary_key AND numAuteur=:second_primary_key";
+                    $req_prep = Model::$pdo->prepare($sql);
+                    $values = array(
+                        "primary_key"=>$isbn,
+                        "second_primary_key"=> $value
+                    );
+                    $req_prep->execute($values);
+                }
+            }
+
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+    public static function updateBookCategorie($isbn,$data)
+    {
+        try {
+            //creer une liste de categorie liee au livre
+            $sql = "SELECT numCategorie FROM bookCategorie WHERE isbn=:primary_key";
+            $req_prep = Model::$pdo->prepare($sql);
+            $values = array("primary_key"=>$isbn);
+            $req_prep->execute($values);
+            $req_prep->setFetchMode(PDO::FETCH_NUM);
+            $tab_categorie=$req_prep->fetchAll();
+
+
+
+            // convertit en tableau de string simple
+            $array = array();
+            foreach ($tab_categorie as $value){
+                $array[] = $value[0];
+            }
+            $tab_categorie = $array;
+
+            //ajoute les nouvelles entree inexistantes
+            foreach ($data as $value) {
+                if(!in_array($value,$tab_categorie)) {
+                    $sql = "INSERT INTO bookCategorie VALUES (:primary_key, :second_primary_key)";
+                    $req_prep = Model::$pdo->prepare($sql);
+                    $values = array(
+                        "primary_key"=>$isbn,
+                        "second_primary_key"=> $value
+                    );
+                    $req_prep->execute($values);
+                }
+            }
+            //supprime les tuples obsolete
+            foreach ($tab_categorie as $value) {
+                if(!in_array($value,$data)) {
+                    $sql = "DELETE FROM bookCategorie WHERE isbn=:primary_key AND numCategorie=:second_primary_key";
+                    $req_prep = Model::$pdo->prepare($sql);
+                    $values = array(
+                        "primary_key"=>$isbn,
+                        "second_primary_key"=> $value
+                    );
+                    $req_prep->execute($values);
+                }
+            }
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+
     public static function updateStock($isbn, $quantite)
     {
         try {

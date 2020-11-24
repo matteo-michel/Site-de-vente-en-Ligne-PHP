@@ -57,6 +57,38 @@ class controllerBook
         self::readAll();
     }
 
+    public static function update() {
+            $view = 'formUpdate';
+            $name = 'updated';
+            $isbn = $_GET['isbn'];
+            require File::build_path(array('view', 'view.php'));
+    }
+
+    public static function updated() {
+        $isbn = $_POST['isbn'];
+        $titre = $_POST['titre'];
+        $prix = $_POST['prix'];
+        $dateParution = $_POST['date'];
+        $resume = $_POST['resume'];
+        //$stock = $_POST['stock'];
+        $numEditeur = $_POST['numEditeur'];
+        $listeAuteur = $_POST['numAuteur'];
+        $listeCategorie = $_POST['numCategorie'];
+
+        modelBook::updateBookAuteur($isbn,$listeAuteur);
+        modelBook::updateBookCategorie($isbn,$listeCategorie);
+
+        $data = array('isbn' => $isbn,
+            'titre' => $titre,
+            'numEditeur' => $numEditeur,
+            'prix' => $prix,
+            'dateParution' => $dateParution,
+            'resume' => $resume);
+        modelBook::update($data);
+
+        echo "Le livre a bien été modifié !";
+    }
+
     public static function ajouterListeEnvie(){
         $isbn = $_GET['isbn'];
         $login = $_SESSION['login'];
