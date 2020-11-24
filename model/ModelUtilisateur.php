@@ -61,7 +61,7 @@ class modelUtilisateur extends Model {
     public static function sendMail($login,$destinataire,$nonce)
     {
         $subject = 'Email de vérification Book\'Sell';
-        $mail_link = 'http://localhost/ProjetPHP/index.php?controller=utilisateur&action=validate&login='.$login.'&nonce='.$nonce;
+        $mail_link = 'http://localhost/index.php?controller=utilisateur&action=validate&login='.$login.'&nonce='.$nonce;
         $message =
             '<html>
                 <body>
