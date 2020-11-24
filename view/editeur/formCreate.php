@@ -5,6 +5,7 @@
             <?php $controller = static::$object; ?>
 
             <input type='hidden' name='action' value='<?php echo $name ?>'>
+            <input type='hidden' name='numEditeur' value='<?php echo $numEditeur ?>'>
 
             <label for="nomEditeur_id">Nom éditeur</label> :
             <input type="text"  name="nomEditeur" id="nomEditeur_id" required/>

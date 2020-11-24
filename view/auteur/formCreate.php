@@ -4,6 +4,7 @@
         <div class="form-group">
             <?php $controller = static::$object; ?>
             <input type='hidden' name='action' value='<?php echo $name ?>'>
+            <input type='hidden' name='numAuteur' value='<?php echo $numAuteur ?>'>
         </div>
         <div class="form-group">
             <label for="prenomAuteur_id">Prénom auteur</label> :

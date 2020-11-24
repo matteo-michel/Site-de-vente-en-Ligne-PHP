@@ -25,6 +25,8 @@ class controllerBook
     {
         $view = 'formCreate';
         $name = 'created';
+        $isbn = '';
+        $type = '';
         require File::build_path(array('view', 'view.php'));
     }
 
@@ -58,9 +60,10 @@ class controllerBook
     }
 
     public static function update() {
-            $view = 'formUpdate';
+            $view = 'formCreate';
             $name = 'updated';
             $isbn = $_GET['isbn'];
+            $type = 'readonly';
             require File::build_path(array('view', 'view.php'));
     }
 
@@ -70,7 +73,6 @@ class controllerBook
         $prix = $_POST['prix'];
         $dateParution = $_POST['date'];
         $resume = $_POST['resume'];
-        //$stock = $_POST['stock'];
         $numEditeur = $_POST['numEditeur'];
         $listeAuteur = $_POST['numAuteur'];
         $listeCategorie = $_POST['numCategorie'];
@@ -85,7 +87,7 @@ class controllerBook
             'dateParution' => $dateParution,
             'resume' => $resume);
         modelBook::update($data);
-
+        self::readAll();
         echo "Le livre a bien été modifié !";
     }
 

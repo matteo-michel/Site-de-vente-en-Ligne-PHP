@@ -24,6 +24,7 @@ class controllerCategorie
     {
         $view = 'formCreate';
         $name = 'created';
+        $numCategorie = '';
         require File::build_path(array('view', 'view.php'));
     }
 
@@ -40,8 +41,21 @@ class controllerCategorie
         self::readAll();
     }
 
-    public static function update()
-    {
-        $a = 'yousk2';
+    public static function update() {
+        $view = 'formCreate';
+        $name = 'updated';
+        $numCategorie = $_GET['numCategorie'];
+        require File::build_path(array('view', 'view.php'));
+    }
+
+    public static function updated() {
+        $numCategorie = $_POST['numCategorie'];
+        $nomCategorie = $_POST['nomCategorie'];
+        $data = array('numCategorie' => $numCategorie,
+            'nomCategorie' => $nomCategorie);
+        modelCategorie::update($data);
+
+        self::readAll();
+        echo "La categorie a bien été modifié !";
     }
 }

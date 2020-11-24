@@ -6,5 +6,6 @@ foreach ($tab as $t)
 {
     echo '<p> Categorie : '.$t->get('nomCategorie').'</p>';
     echo '<a href="index.php?controller=categorie&action=delete&numCategorie='.rawurlencode($t->get('numCategorie')).'">Supprimer</a>';
+    echo '<a href="index.php?controller=categorie&action=update&numCategorie='.rawurlencode($t->get('numCategorie')).'">Modifier</a>';
 }
 ?>

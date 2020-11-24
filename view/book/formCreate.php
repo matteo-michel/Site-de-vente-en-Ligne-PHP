@@ -8,7 +8,7 @@
             </div>
             <div class="form-group">
                 <label for="isbn_id">ISBN</label> :
-                <input type="text" name="isbn" id="isbn_id" required/>
+                <input type="text" value="<?php echo $isbn?>" name="isbn" id="isbn_id" required <?php echo $type?>/>
             </div>
             <div class="form-group">
                 <label for="titre_id">Titre</label> :

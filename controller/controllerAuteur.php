@@ -30,6 +30,7 @@ class controllerAuteur
     {
         $view = 'formCreate';
         $name = 'created';
+        $numAuteur = '';
         require File::build_path(array('view', 'view.php'));
     }
 
@@ -42,8 +43,23 @@ class controllerAuteur
         self::readAll();
     }
 
-    public static function update()
-    {
-        $a = 'yousk2';
+    public static function update() {
+        $view = 'formCreate';
+        $name = 'updated';
+        $numAuteur = $_GET['numAuteur'];
+        require File::build_path(array('view', 'view.php'));
+    }
+
+    public static function updated() {
+        $numAuteur = $_POST['numAuteur'];
+        $nomAuteur = $_POST['nomAuteur'];
+        $prenomAuteur = $_POST['prenomAuteur'];
+        $data = array('numAuteur' => $numAuteur,
+            'nomAuteur' => $nomAuteur,
+            'prenomAuteur' => $prenomAuteur);
+        modelAuteur::update($data);
+
+        self::readAll();
+        echo "L'auteur a bien été modifié !";
     }
 }

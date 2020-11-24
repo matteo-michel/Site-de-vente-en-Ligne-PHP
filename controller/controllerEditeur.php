@@ -24,6 +24,7 @@ class controllerEditeur
     {
         $view = 'formCreate';
         $name = 'created';
+        $numEditeur = '';
         require File::build_path(array('view', 'view.php'));
     }
 
@@ -40,8 +41,21 @@ class controllerEditeur
         self::readAll();
     }
 
-    public static function update()
-    {
-        $a = 'yousk2';
+    public static function update() {
+        $view = 'formCreate';
+        $name = 'updated';
+        $numEditeur = $_GET['numEditeur'];
+        require File::build_path(array('view', 'view.php'));
+    }
+
+    public static function updated() {
+        $numEditeur = $_POST['numEditeur'];
+        $nomEditeur = $_POST['nomEditeur'];
+        $data = array('numEditeur' => $numEditeur,
+            'nomEditeur' => $nomEditeur);
+        modelEditeur::update($data);
+
+        self::readAll();
+        echo "L'editeur a bien été modifié !";
     }
 }
