@@ -81,10 +81,10 @@ class   Model {
     $stringInto = $table_name . '(' . $primary_key . ',';
     $stringValue = '';
     try {
-        foreach ($data as $key => $value) 
+        foreach ($data as $key => $value)
           {
-            $stringInto =  $stringInto . $key . ',';
-            $stringValue = $stringValue . "'" . $value . "'" . ',';
+              $stringInto =  $stringInto . $key . ',';
+              $stringValue = $stringValue . "'" . $value . "'" . ',';
           }
         $stringInto = rtrim($stringInto,",") . ')';
         $stringValue = rtrim($stringValue, ",");

@@ -1,5 +1,5 @@
 <div class="content">
-    <form method="post" action="index.php" class="login" id="register">
+    <form method="post" action="index.php" class="login" id="register" enctype="multipart/form-data">
         <fieldset>
             <legend>Ajouter un livre :</legend>
             <div class="form-group">
@@ -60,6 +60,10 @@
                 <label for="resume_id">Resumé</label> :
 <!--                <input type="text"  name="resume" id="resume_id"/>-->
                 <textarea id="resume_id"class="form-control" name = "resume" rows="3" cols="50" maxlength="1024"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="image">Image</label> :
+                <input type="file" class="" name = "image" accept=".jpeg, .jpg">
             </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Envoyer</button>

@@ -53,7 +53,11 @@
         }
 
         echo '<div class="livre">';
-        echo '<img src="../../ressource/linux.png">';
+        if(!$u->get('image')) {
+            echo '<img src="../../ressource/linux.png"/>';
+        } else {
+            echo '<img src="data:image/jpeg;base64,'.base64_encode($u->get('image')).'"/>';
+        }
         echo '<div class="bookInfo">';
         echo '<p>Titre : '. $u->get("titre") . '</p>';
         echo '<p> Auteurs : '. $resultAuteur .'</p>';
@@ -74,7 +78,7 @@
     }
     echo '<div>';
     echo "<ul class=\"pagination text-center\">";
-    for ($i = 1; $i <= floor(ModelBook::getAmount()/10)+1; $i++) {
+    for ($i = 1; $i < floor(ModelBook::getAmount()/10)+1; $i++) {
         echo "<li class=\"page-item\"><a class=\"page-link\" href=\"index.php?page=".$i."\">$i</a></li>";
     }
     echo "</ul>";
