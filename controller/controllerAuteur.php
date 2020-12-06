@@ -28,7 +28,7 @@ class controllerAuteur
 
     public static function create()
     {
-        $view = 'formCreate';
+        $view = 'form';
         $name = 'created';
         $numAuteur = '';
         require File::build_path(array('view', 'view.php'));
@@ -44,9 +44,10 @@ class controllerAuteur
     }
 
     public static function update() {
-        $view = 'formCreate';
+        $view = 'form';
         $name = 'updated';
         $numAuteur = $_GET['numAuteur'];
+        $auteur = ModelAuteur::select($numAuteur)[0];
         require File::build_path(array('view', 'view.php'));
     }
 

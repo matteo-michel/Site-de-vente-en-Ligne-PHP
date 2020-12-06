@@ -4,6 +4,7 @@ require_once File::build_path(array('model', 'ModelAuteur.php'));
 require_once File::build_path(array('model', 'ModelEditeur.php'));
 require_once File::build_path(array('model', 'ModelCategorie.php'));
 require_once File::build_path(array('model', 'ModelListeEnvie.php'));
+require_once File::build_path(array('model', 'ModelBookCategorie.php'));
 
 class controllerBook
 {
@@ -23,7 +24,7 @@ class controllerBook
 
     public static function create()
     {
-        $view = 'formCreate';
+        $view = 'form';
         $name = 'created';
         $isbn = '';
         $type = '';
@@ -61,10 +62,11 @@ class controllerBook
     }
 
     public static function update() {
-            $view = 'formCreate';
+            $view = 'form';
             $name = 'updated';
             $isbn = $_GET['isbn'];
             $type = 'readonly';
+            $book = ModelBook::select($isbn)[0];
             require File::build_path(array('view', 'view.php'));
     }
 

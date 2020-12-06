@@ -40,7 +40,6 @@
                           <a class=\"dropdown-item\" href=\"index.php?controller=auteur\">Liste d'auteur</a>
                           <a class=\"dropdown-item\" href=\"index.php?action=create\">Ajouter un livre</a>
                         </div></li>";
-
                     }
                     echo "</ul>";
                     echo "<ul class=\"nav navbar-nav navbar-right\">

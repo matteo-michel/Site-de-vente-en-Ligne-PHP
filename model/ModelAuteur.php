@@ -31,7 +31,7 @@ class ModelAuteur extends Model {
 
     public static function getBookAuteurs($isbn) {
         try {
-            $sql= "SELECT nomAuteur, prenomAuteur from auteur a JOIN bookAuteur b ON a.numAuteur = b.numAuteur WHERE b.isbn = :isbn";
+            $sql= "SELECT * from auteur a JOIN bookAuteur b ON a.numAuteur = b.numAuteur WHERE b.isbn = :isbn";
             $req_prep = Model::$pdo->prepare($sql);
             $values = array("isbn" => $isbn);
             $req_prep->execute($values);

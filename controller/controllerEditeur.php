@@ -1,8 +1,5 @@
 <?php
-require_once File::build_path(array('model', 'ModelBook.php'));
-require_once File::build_path(array('model', 'ModelAuteur.php'));
 require_once File::build_path(array('model', 'ModelEditeur.php'));
-require_once File::build_path(array('model', 'ModelCategorie.php'));
 
 class controllerEditeur
 {
@@ -22,7 +19,7 @@ class controllerEditeur
 
     public static function create()
     {
-        $view = 'formCreate';
+        $view = 'form';
         $name = 'created';
         $numEditeur = '';
         require File::build_path(array('view', 'view.php'));
@@ -42,9 +39,10 @@ class controllerEditeur
     }
 
     public static function update() {
-        $view = 'formCreate';
+        $view = 'form';
         $name = 'updated';
         $numEditeur = $_GET['numEditeur'];
+        $editeur = ModelEditeur::select($numEditeur)[0];
         require File::build_path(array('view', 'view.php'));
     }
 

@@ -1,7 +1,4 @@
 <?php
-require_once File::build_path(array('model', 'ModelBook.php'));
-require_once File::build_path(array('model', 'ModelAuteur.php'));
-require_once File::build_path(array('model', 'ModelEditeur.php'));
 require_once File::build_path(array('model', 'ModelCategorie.php'));
 
 class controllerCategorie
@@ -22,7 +19,7 @@ class controllerCategorie
 
     public static function create()
     {
-        $view = 'formCreate';
+        $view = 'form';
         $name = 'created';
         $numCategorie = '';
         require File::build_path(array('view', 'view.php'));
@@ -42,9 +39,10 @@ class controllerCategorie
     }
 
     public static function update() {
-        $view = 'formCreate';
+        $view = 'form';
         $name = 'updated';
         $numCategorie = $_GET['numCategorie'];
+        $categorie = ModelCategorie::select($numCategorie)[0];
         require File::build_path(array('view', 'view.php'));
     }
 

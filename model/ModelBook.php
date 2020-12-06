@@ -10,6 +10,7 @@ class ModelBook extends Model
     private $dateParution;
     private $stock;
     private $image;
+    private $resume;
 
     protected static $object = 'book';
     protected static $primary = 'isbn';
@@ -26,8 +27,8 @@ class ModelBook extends Model
         return false;
     }
 
-    public function __construct($isbn = NULL, $titre = NULL, $numEditeur = NULL, $prix = NULL, $dateParution = NULL, $stock = NULL, $image = NULL) {
-        if (!is_null($isbn) && !is_null($titre) && !is_null($numEditeur) && !is_null($prix) && !is_null($dateParution) && !is_null($stock) && !is_null($image)) {
+    public function __construct($isbn = NULL, $titre = NULL, $numEditeur = NULL, $prix = NULL, $dateParution = NULL, $stock = NULL, $image = NULL, $resume = NULL) {
+        if (!is_null($isbn) && !is_null($titre) && !is_null($numEditeur) && !is_null($prix) && !is_null($resume) && !is_null($dateParution) && !is_null($stock) && !is_null($image)) {
             $this->isbn = $isbn;
             $this->titre = $titre;
             $this->numEditeur = $numEditeur;
@@ -35,6 +36,7 @@ class ModelBook extends Model
             $this->dateParution = $dateParution;
             $this->stock = $stock;
             $this->image = $image;
+            $this->resume = $resume;
         }
     }
 
