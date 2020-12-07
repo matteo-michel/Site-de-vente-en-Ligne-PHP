@@ -52,8 +52,9 @@
 }
 
 img {
-    height: 180px;
-    max-height: 180px;
+    width: 150px;
+    max-width: 150px;
+    max-height: 200px;
 }
 
 .bookInfo {
@@ -74,4 +75,8 @@ img {
 
 #stock {
     font-size: 1.1em;
+}
+
+.text-center {
+    margin-bottom: 15px;
 }
