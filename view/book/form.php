@@ -15,6 +15,10 @@
                 <input type="text" class="form-control" value = "<?php echo isset($book)? $book->get('titre'):'' ; ?>" name="titre" id="titre_id" required/>
             </div>
             <div class="form-group">
+                <label for="stock_id">Stock</label> :
+                <input type="number" value = "<?php echo isset($book)? $book->get('stock'):'' ; ?>" name="stock" id="stock_id" required/>
+            </div>
+            <div class="form-group">
                 <label for="numEditeur_id">Nom Editeur</label> :
                 <select name="numEditeur" id="numEditeur_id" required>
                     <?php
