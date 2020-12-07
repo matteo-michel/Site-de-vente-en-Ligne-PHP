@@ -17,6 +17,12 @@ class ModelItemPanier extends Model
         return false;
     }
 
+    public function set($nom_attribut, $valeur) {
+        if (property_exists($this, $nom_attribut))
+            $this->$nom_attribut = $valeur;
+        return false;
+    }
+
     public function addQuantite()
     {
         $this->quantite ++;
@@ -25,6 +31,7 @@ class ModelItemPanier extends Model
     public function removeQuantite() {
         $this->quantite--;
     }
+
 
 
 

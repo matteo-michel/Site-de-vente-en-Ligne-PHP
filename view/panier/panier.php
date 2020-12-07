@@ -27,10 +27,10 @@
             echo '<p> Prix : '. $livre->get('prix')*$t->get('quantite') . '€' .  '</p>';
             echo '</div>';
             echo '<div class="panier">';
-            echo '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bookQuantite"><i class="fas fa-cubes"></i> Modifier la quantite </button>
+            echo '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book'. $livre->get('isbn') .'"><i class="fas fa-cubes"></i> Modifier la quantite </button>
                     
                     <!-- Modal -->
-                    m<div class="modal fade" id="bookQuantite" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal fade" id="book'. $livre->get('isbn') .'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -38,23 +38,25 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="content">
-                                <form method="post" action="index.php?controller=bookCommande" class="login" id="register" enctype="multipart/form-data">
+                        </div>
+                        <form method="post" action="index.php?controller=panier">
+                            <div class="modal-body">
+                                <div class="content">
                                     <fieldset>
                                             <div class="form-group">
+                                                <input type="hidden" name="action" value="update">
+                                                <input type="hidden" name="isbn" value=' . rawurlencode($bISBN) . '>
                                                 <label for="quantite_id">Nouvelle quantite </label> :
-                                                <input type="nuber" value = "' . $t->get('quantite') . '"name="quantite" id="quantite_id" required/>
+                                                <input type="number" value = "' . $t->get('quantite') . '"name="quantite" id="quantite_id" min="1" required />
                                             </div>
-                                         </fieldset>
-                                    </form>
-                                </div>
+                                     </fieldset>
+                            </div>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="submit" class="btn btn-primary">Valider</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                           </div>
+                        </form>
                         </div>
                       </div>
                     </div>';

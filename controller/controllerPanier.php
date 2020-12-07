@@ -41,11 +41,9 @@ class controllerPanier
     public static function delete() {
         $isbn = $_GET['isbn'];
         $panier = unserialize($_COOKIE['panier'], ["allowed_classes" => true]);
-        $index = array_search($isbn, $panier);
-        $panier[$index]->removeQuantite();
-        if($panier[$index]->get('quantite') == 0) {
-            unset($panier[$index]);
-        }
+        foreach ($panier as $key => $p)
+            if($p->get('isbn') == $isbn) $index = $key;
+        unset($panier[$index]);
         unset($_COOKIE['panier']);
         setcookie('panier', serialize($panier), time() + 3600);
         header('Location: index.php?controller=panier');
@@ -99,6 +97,18 @@ class controllerPanier
             }
             self::clear();
         }
+    }
+
+    public static function update() {
+        $quantite = $_POST['quantite'];
+        if(isset($_COOKIE['panier'])) {
+            $panier = unserialize($_COOKIE['panier'], ["allowed_classes" => true]);
+            unset($_COOKIE['panier']);
+            $item = self::findObjectById($_POST['isbn'], $panier);
+            $item->set('quantite', $quantite);
+            setcookie('panier', serialize($panier), time() + 3600);
+        }
+        header('Location: index.php?controller=panier');
     }
 
     public static function findObjectById($id, $array){

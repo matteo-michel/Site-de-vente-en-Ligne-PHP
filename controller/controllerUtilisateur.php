@@ -95,7 +95,7 @@ class ControllerUtilisateur {
 
     public static function update() {
         if(isset($_SESSION['login'])) {
-            if (isset($_GET['login'])) {
+            if (isset($_GET['login']) && $_SESSION['isAdmin'] == 1) {
                 $login = $_GET['login'];
             } else {
                 $login = $_SESSION['login'];

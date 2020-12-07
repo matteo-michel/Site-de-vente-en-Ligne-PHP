@@ -12,8 +12,8 @@ foreach ($tab as $t)
     echo '<p> Auteur : '.$t->get('nomAuteur').' '.$t->get('prenomAuteur').'</p>';
     echo '</div>';
     echo '<div class="panier">';
-    echo '<a class="btn btn-danger" href="index.php?controller=auteur&action=delete&numAuteur='.rawurlencode($t->get('numAuteur')).'"><i class="fas fa-times"></i> Supprimer</a>';
     echo '<a class="btn btn-primary" href="index.php?controller=auteur&action=update&numAuteur='.rawurlencode($t->get('numAuteur')).'"><i class="fas fa-pen"></i> Modifier</a>';
+    echo '<a class="btn btn-danger" href="index.php?controller=auteur&action=delete&numAuteur='.rawurlencode($t->get('numAuteur')).'"><i class="fas fa-times"></i> Supprimer</a>';
     echo '</div>';
     echo '</div>';
 }
