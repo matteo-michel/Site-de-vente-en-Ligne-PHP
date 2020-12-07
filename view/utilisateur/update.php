@@ -1,4 +1,4 @@
-<form method="post" action="index.php?controller=utilisateur" class="login">
+<form method="post" action="index.php?controller=utilisateur&login=<?php echo $user->get('login'); ?>" class="login">
 <fieldset>
 <legend>Modifer Mon profil :</legend>
     <label for="login_id">Login</label> :

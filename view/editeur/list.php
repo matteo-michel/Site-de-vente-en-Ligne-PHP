@@ -1,3 +1,6 @@
+<div class="text-center">
+    <a class="btn btn-success" href="index.php?controller=editeur&action=create">Ajouter un editeur</a>
+</div>
 <?php
 echo '<div class="home-content">';
 $tab = ModelEditeur::selectAll(';');
@@ -17,6 +20,4 @@ foreach ($tab as $t)
 echo '</div>';
 echo '</div>';
 ?>
-<div class="text-center">
-    <a class="btn btn-success" href="index.php?controller=editeur&action=create">Ajouter un editeur</a>
-</div>
+

@@ -95,9 +95,14 @@ class ControllerUtilisateur {
 
     public static function update() {
         if(isset($_SESSION['login'])) {
+            if (isset($_GET['login'])) {
+                $login = $_GET['login'];
+            } else {
+                $login = $_SESSION['login'];
+            }
             $view = 'update';
             $name = 'updated';
-            $user = modelUtilisateur::select($_SESSION['login'])[0];
+            $user = modelUtilisateur::select($login)[0];
             require File::build_path(array('view','view.php'));
         } else {
             self::login();
@@ -111,7 +116,7 @@ class ControllerUtilisateur {
         $data = array('nom' => $nom, 'prenom' => $prenom, 'email' => $email);
         modelUtilisateur::update($data);
 
-        echo "Votre profile a bien été modifié !";
+        echo "Le profile a bien été modifié !";
         self::profile();
 
     }

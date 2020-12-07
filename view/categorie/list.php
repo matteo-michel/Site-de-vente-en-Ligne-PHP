@@ -1,3 +1,7 @@
+<div class="text-center">
+    <a class="btn btn-success" href="index.php?controller=categorie&action=create">Ajouter une categorie</a>
+</div>
+
 <?php
 echo '<div class="home-content">';
 $tab = ModelCategorie::selectAll(';');
@@ -17,6 +21,3 @@ foreach ($tab as $t)
 echo '</div>';
 echo '</div>';
 ?>
-<div class="text-center">
-    <a class="btn btn-success" href="index.php?controller=categorie&action=create">Ajouter une categorie</a>
-</div>
