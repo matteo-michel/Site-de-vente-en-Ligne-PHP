@@ -6,12 +6,21 @@ foreach ($tab as $u){
     echo '<div class="bookInfo">';
     echo '<p> Utilisateur de login : <a href="index.php?controller=utilisateur&action=profile&login=' . rawurlencode($uLogin) . '">' . htmlspecialchars($uLogin) . '</a></br>';
     echo '</div>';
-    if(isset($_SESSION['login']) && $_SESSION['isAdmin'] == '1') {
-        echo '<div class="panier">';
-        echo "<a class='btn btn-primary' href=\"index.php?controller=utilisateur&action=update&login=" . rawurlencode($uLogin) . "\"><i class='fas fa-pen'></i> Modifier</a>";
-        echo "<a class='btn btn-danger' role='button' href=\"index.php?controller=utilisateur&action=delete&login=" . rawurlencode($uLogin) . "\"><i class=\"fas fa-times\"></i> Supprimer le compte</a>";
-        echo '</div>';
+    echo '<div class="panier horizontal">';
+    if (isset($_SESSION['login']) && $_SESSION['isAdmin'] == '1')
+    {
+        if (modelUtilisateur::select($uLogin)[0]->get('isAdmin')=='0')
+        {
+            echo "<a class='btn btn-success' role='button' href=\"index.php?controller=utilisateur&action=update&login=" . rawurlencode($uLogin) . "\"><i class='fas fa-medal'></i> Promouvoir </a>";
+        } else
+        {
+            echo "<a class='btn btn-secondary' disabled='disabled' role='button' href=''><i class='fas fa-crown'></i> Admin </a>";
+        }
+
     }
+    echo "<a class='btn btn-primary' role='button' href=\"index.php?controller=utilisateur&action=update&login=" . rawurlencode($uLogin) . "\"><i class='fas fa-pen'></i> Modifier</a>";
+    echo "<a class='btn btn-danger' role='button' href=\"index.php?controller=utilisateur&action=delete&login=" . rawurlencode($uLogin) . "\"><i class=\"fas fa-times\"></i> Supprimer le compte</a>";
+    echo '</div>';
     echo '</div>';
     echo '</div>';
 }

@@ -26,15 +26,19 @@
 .panier .btn-warning {
     background-color: #ff7675;
     border-color: #ff7675;
-    border-radius: 5px;
-    display: block;
-    position: relative;
-    color: white;
+
 }
 
 .panier .btn-warning:hover {
     background-color: #d45655;
     border-color: #d45655;
+}
+
+.panier .btn {
+    border-radius: 5px;
+    display: block;
+    position: relative;
+    color: white;
 }
 
 .panier {
@@ -79,4 +83,13 @@ img {
 
 .text-center {
     margin: 15px auto;
+}
+
+.horizontal{
+    display: flex;
+    flex-direction: row;
+}
+
+.horizontal>.btn{
+    margin: auto 15px;
 }

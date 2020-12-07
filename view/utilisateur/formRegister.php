@@ -1,5 +1,5 @@
 <div class="content">
-    <form method="post" action="index.php" class="login">
+    <form method="post" action="index.php?controller=utilisateur" class="login">
         <fieldset>
         <legend>S'inscrire :</legend>
         <div class="form-group">

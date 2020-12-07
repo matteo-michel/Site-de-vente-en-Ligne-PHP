@@ -4,14 +4,11 @@ foreach ($tab as $u) {
     $listeBookByNumCommande = ModelBookCommande::select($u->get('numCommande'));
     echo '<p>Pour la date du ' . $u->get('date') . '</p>';
     $prixTotal = 0;
-    $testExist = true;
-    foreach ($listeBookByNumCommande as $book) {
-
-        if (!ModelBook::select($book->get('isbn')))
-        {
-            echo '<p> Ce livre n\'existe plus : ' . $book->get('isbn') . '</p>';
-            $testExist = false;
-        } else {
+    if (!$listeBookByNumCommande)
+    {
+        echo '<p> Les elements de cette commande n\'existent plus ! </p>';
+    } else {
+        foreach ($listeBookByNumCommande as $book) {
             $livreCommande = ModelBook::select($book->get('isbn'))[0];
             $resultAuteur = "";
             $auteurs = ModelAuteur::getBookAuteurs($livreCommande->get('isbn'));
@@ -32,9 +29,7 @@ foreach ($tab as $u) {
             echo '</div>';
             $prixTotal = $prixTotal + $livreCommande->get('prix') * $book->get('quantite');
         }
+        echo '<p>Le prix total de la commande est : ' . $prixTotal . ' €</p>';
+
     }
-    if ($testExist)
-            echo '<p>Le prix total de la commande est : '. $prixTotal .' €</p>';
-    else
-        echo '<p>Le prix de cette commande ne peut être defini !</p>';
 }
