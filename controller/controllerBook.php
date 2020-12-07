@@ -17,7 +17,7 @@ class controllerBook
 
     public static function read()
     {
-        $book = ModelBook::select($_GET['isbn']);
+        $book = ModelBook::select($_GET['isbn'])[0];
         $view = 'detail';
         require File::build_path(array('view', 'view.php'));
     }
@@ -79,6 +79,7 @@ class controllerBook
         $numEditeur = $_POST['numEditeur'];
         $listeAuteur = $_POST['numAuteur'];
         $listeCategorie = $_POST['numCategorie'];
+        $stock = $_POST['stock'];
 
         modelBook::updateBookAuteur($isbn,$listeAuteur);
         modelBook::updateBookCategorie($isbn,$listeCategorie);
@@ -88,7 +89,8 @@ class controllerBook
             'numEditeur' => $numEditeur,
             'prix' => $prix,
             'dateParution' => $dateParution,
-            'resume' => $resume);
+            'resume' => $resume,
+            'stock' => $stock);
         modelBook::update($data);
         self::readAll();
         echo "Le livre a bien été modifié !";
@@ -107,5 +109,16 @@ class controllerBook
         $view = 'listEnvie';
         require File::build_path(array('view', 'view.php'));
 
+    }
+
+    public static function delete()
+    {
+        if (isset($_SESSION['login']) && $_SESSION['isAdmin'] == '1') {
+            ModelBook::delete();
+            header('Location: index.php');
+        } else {
+            echo "Vous n'avez pas le droit de réaliser cela !";
+            controllerUtilisateur::login();
+        }
     }
 }
