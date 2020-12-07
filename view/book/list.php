@@ -52,6 +52,8 @@
             $resultAuteur = $resultAuteur . $a->get('prenomAuteur') . " " . $a->get('nomAuteur') . ", ";
         }
 
+        $resultAuteur = rtrim($resultAuteur, ', ');
+
         echo '<div class="livre">';
         if(!$u->get('image')) {
             echo '<img src="../../ressource/linux.png"/>';
@@ -78,8 +80,10 @@
     }
     echo '<div>';
     echo "<ul class=\"pagination text-center\">";
-    for ($i = 1; $i <= floor(ModelBook::getAmount()/11)+1; $i++) {
-        echo "<li class=\"page-item\"><a class=\"page-link\" href=\"index.php?page=".$i."\">$i</a></li>";
+    if ($order_by == '') {
+        for ($i = 1; $i <= floor(ModelBook::getAmount() / 11) + 1; $i++) {
+            echo "<li class=\"page-item\"><a class=\"page-link\" href=\"index.php?page=" . $i . "\">$i</a></li>";
+        }
     }
     echo "</ul>";
 ?>

@@ -2,8 +2,6 @@
     <fieldset>
         <legend>Ajouter un Editeur :</legend>
         <div class="form-group">
-            <?php $controller = static::$object; ?>
-
             <input type='hidden' name='action' value='<?php echo $name ?>'>
             <input type='hidden' name='numEditeur' value='<?php echo $numEditeur ?>'>
 
