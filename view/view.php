@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <title>Accueil</title>
@@ -13,6 +13,7 @@
         <script src="../assets/jquery-1.12.4.min.js"></script>
         <script src="../assets/bootstrap.bundle.min.js"></script>
         <script src="https://kit.fontawesome.com/29189c846f.js" crossorigin="anonymous"></script>
+<!--        <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
 
     </head>
     <body>

@@ -81,5 +81,22 @@ class modelUtilisateur extends Model {
         mail($destinataire, $subject, $message, implode("\r\n", $headers));
     }
 
+    public static function promote($login) {
+        try {
+            $sql="UPDATE utilisateur SET isAdmin='1' WHERE login = :login";
+            $req_prep = Model::$pdo->prepare($sql);
+            $values = array("login"=>$login);
+            $req_prep->execute($values);
+
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo 'Une erreur est survenue <a href="index.php"> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+
 }
 ?>

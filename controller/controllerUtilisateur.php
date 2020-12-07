@@ -121,6 +121,14 @@ class ControllerUtilisateur {
 
     }
 
+    public static function promote() {
+        if(isset($_SESSION['login']) && $_SESSION['isAdmin'] == 1 && isset($_GET['login'])) {
+            $login = $_GET['login'];
+            modelUtilisateur::promote($login);
+        }
+        self::readAll();
+    }
+
     public static function delete() {
         if (isset($_SESSION['login'])) {
             if($_GET['login'] == $_SESSION['login'] || $_SESSION['isAdmin'] == '1') {

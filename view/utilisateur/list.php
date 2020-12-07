@@ -11,7 +11,7 @@ foreach ($tab as $u){
     {
         if (modelUtilisateur::select($uLogin)[0]->get('isAdmin')=='0')
         {
-            echo "<a class='btn btn-success' role='button' href=\"index.php?controller=utilisateur&action=update&login=" . rawurlencode($uLogin) . "\"><i class='fas fa-medal'></i> Promouvoir </a>";
+            echo "<a class='btn btn-success' role='button' href=\"index.php?controller=utilisateur&action=promote&login=" . rawurlencode($uLogin) . "\"><i class='fas fa-medal'></i> Promouvoir </a>";
         } else
         {
             echo "<a class='btn btn-secondary' disabled='disabled' role='button' href=''><i class='fas fa-crown'></i> Admin </a>";
