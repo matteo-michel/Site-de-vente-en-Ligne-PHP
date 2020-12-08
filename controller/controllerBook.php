@@ -79,7 +79,7 @@ class controllerBook
             $book = ModelBook::select($isbn)[0];
             require File::build_path(array('view', 'view.php'));
         } else if (isset($_SESSION['login'])) {
-            echo '<p class="erreur">Vous n\'avez pas la permission de réaliser cela !</p>';
+            echo '<div class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</div>';
             controllerBook::readAll();
         } else {
             ControllerUtilisateur::login();

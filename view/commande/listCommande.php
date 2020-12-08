@@ -4,7 +4,10 @@ if ($tab != false)
     $tab = array_reverse($tab);
     foreach ($tab as $u) {
         $listeBookByNumCommande = ModelBookCommande::select($u->get('numCommande'));
-        echo '<p>Pour la date du ' . $u->get('date') . '</p>';
+        setlocale(LC_TIME, "fr_FR", "French");
+        $date = utf8_encode(strftime("%d %B %G", strtotime($u->get('date'))));
+        echo '<div class = "articles-commande">';
+        echo '<p class="dateCommande">Commande effectué le ' . $date . '</p>';
         $prixTotal = 0;
         if (!$listeBookByNumCommande) {
             echo '<p> Les elements de cette commande n\'existent plus ! </p>';
@@ -31,6 +34,7 @@ if ($tab != false)
                 $prixTotal = $prixTotal + $livreCommande->get('prix') * $book->get('quantite');
             }
             echo '<p>Le prix total de la commande est : ' . $prixTotal . ' €</p>';
+            echo '</div>';
         }
     }
 }else

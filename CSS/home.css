@@ -94,7 +94,11 @@ img {
     margin: auto 15px;
 }
 
-.erreur{
-    background-color: red;
+.alert {
+    position: fixed;
+    bottom: 0;
     margin: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 1;
 }
