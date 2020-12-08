@@ -1,4 +1,14 @@
 <?php
+$panelAdmin = '';
+if (isset($_SESSION['login'])&&$_SESSION['isAdmin']=='1') $panelAdmin = '<h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Modifications</h6>
+                                                                        <div class="row">
+                                                                            <div class="col-sm-6">
+                                                                                <a class="btn btn-warning" role="button" href="index.php?controller=book&action=update&isbn=' . rawurlencode($book->get('isbn')) . '"><i class="fas fa-pen"></i> Modifier le livre</a>
+                                                                            </div>
+                                                                            <div class="col-sm-6">
+                                                                                <a class="btn btn-danger" role="button" href="index.php?controller=book&action=delete&isbn=' . rawurlencode($book->get('isbn')) . '"><i class="fas fa-times"></i> Supprimer le livre</a>
+                                                                            </div>
+                                                                        </div>';
 echo '
 <div class="page-content page-container" id="page-content">
     <div class="padding">
@@ -23,16 +33,7 @@ echo '
                                         <p class="m-b-10 f-w-600">Resumé</p>
                                         <h6 class="text-muted f-w-400">' . $book->get('resume') . '</h6>
                                     </div>
-                                </div>
-                                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Modifications</h6>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <a class="btn btn-warning" role="button" href="index.php?controller=book&action=update&isbn=' . rawurlencode($book->get('isbn')) . '"><i class="fas fa-pen"></i> Modifier le livre</a>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <a class="btn btn-danger" role="button" href="index.php?controller=book&action=delete&isbn=' . rawurlencode($book->get('isbn')) . '"><i class="fas fa-times"></i> Supprimer le livre</a>
-                                    </div>
-                                </div>
+                                </div>' . $panelAdmin . '
                             </div>
                         </div>
                     </div>

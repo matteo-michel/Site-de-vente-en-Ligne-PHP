@@ -60,14 +60,14 @@
         } else {
             echo '<img src="data:image/jpeg;base64,'.base64_encode($u->get('image')).'"/>';
         }
-        echo '<div class="bookInfo">';
-        echo '<p>Titre : '. $u->get("titre") . '</p>';
-        echo '<p> Auteurs : '. $resultAuteur .'</p>';
-        echo '<p> Stock : '. $u->get('stock') .'</p>';
-        echo '<p> Livre de numéro : <a href="index.php?action=read&isbn=' . rawurlencode($bISBN) . '">' . htmlspecialchars($bISBN) . '</a></p>';
-        echo '</div>';
-        echo '<div class="panier">';
-        echo '<p>' . $u->get("prix") . '<sup>€</sup></p>';
+        echo '  <div class="bookInfo">
+                <p>Titre : '. $u->get("titre") . '</p>
+                <p> Auteurs : '. $resultAuteur .'</p>
+                <p> Stock : '. $u->get('stock') .'</p>
+                <p> Livre de numéro : <a href="index.php?action=read&isbn=' . rawurlencode($bISBN) . '">' . htmlspecialchars($bISBN) . '</a></p>
+                </div>
+                <div class="panier">
+                <p>' . $u->get("prix") . '<sup>€</sup></p>';
         if ($u->get('stock') == 0)
         {
             echo '<p id="stock"> Rupture de stock </p>';
@@ -86,8 +86,7 @@
         else
             echo "<a class='btn btn-warning invisible' role='button' href=\"index.php?controller=book&action=ListeEnvie&isbn=" . rawurlencode($bISBN) . "\"><i class=\"far fa-heart\"></i>  Ajouter à la liste d'envie</a>";
 
-        echo '</div>';
-        echo '</div>';
+        echo '</div></div>';
     }
     echo '<div>';
     echo "<ul class=\"pagination text-center\">";

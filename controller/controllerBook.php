@@ -32,7 +32,7 @@ class controllerBook
             $type = '';
             require File::build_path(array('view', 'view.php'));
         } else if (isset($_SESSION['login'])) {
-            echo '<p>Vous n\'avez pas la permission de réaliser cette action</p>';
+            echo '<p class="erreur">Vous n\'avez pas la permission de réaliser cela !</p>';
             header('Location: index.php');
         } else {
             ControllerUtilisateur::login();
@@ -79,8 +79,8 @@ class controllerBook
             $book = ModelBook::select($isbn)[0];
             require File::build_path(array('view', 'view.php'));
         } else if (isset($_SESSION['login'])) {
-            echo '<p>Vous n\'avez pas la permission de réaliser cette action</p>';
-            header('Location: index.php');
+            echo '<p class="erreur">Vous n\'avez pas la permission de réaliser cela !</p>';
+            controllerBook::readAll();
         } else {
             ControllerUtilisateur::login();
         }

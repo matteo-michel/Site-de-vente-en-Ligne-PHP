@@ -93,3 +93,8 @@ img {
 .horizontal>.btn{
     margin: auto 15px;
 }
+
+.erreur{
+    background-color: red;
+    margin: 0;
+}
