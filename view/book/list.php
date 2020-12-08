@@ -74,10 +74,12 @@
         } else {
             echo "<a class='btn btn-primary' role='button' href=\"index.php?controller=panier&action=create&isbn=" . rawurlencode($bISBN) . "\"><i class=\"fas fa-shopping-basket\"></i>  Ajouter au panier</a>";
         }
-        isset($_SESSION['login'])?$listEnvie = ModelListeEnvie::selectListeEnvie($_SESSION['login']):'';
+        isset($_SESSION['login'])?$listEnvie = ModelListeEnvie::selectListeEnvie($_SESSION['login']):$listEnvie=false;
         $content = false;
-        foreach ($listEnvie as $itemlisteEnvie){
-            if ($itemlisteEnvie->get('isbn')==$bISBN) $content = true;}
+        if($listEnvie != false) {
+            foreach ($listEnvie as $itemlisteEnvie)
+                if ($itemlisteEnvie->get('isbn') == $bISBN) $content = true;
+        }
 
         if (!$content)
             echo "<a class='btn btn-warning' role='button' href=\"index.php?controller=book&action=ajouterListeEnvie&isbn=" . rawurlencode($bISBN) . "\"><i class=\"far fa-heart\"></i>  Ajouter à la liste d'envie</a>";

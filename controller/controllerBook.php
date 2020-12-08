@@ -97,6 +97,10 @@ class controllerBook
     }
 
     public static function ajouterListeEnvie(){
+        if(!isset($_SESSION['login'])) {
+            ControllerUtilisateur::login();
+            return;
+        }
         $isbn = $_GET['isbn'];
         $login = $_SESSION['login'];
         ModelListeEnvie::ajouter($login, $isbn);
