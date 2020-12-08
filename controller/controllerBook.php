@@ -24,11 +24,19 @@ class controllerBook
 
     public static function create()
     {
-        $view = 'form';
-        $name = 'created';
-        $isbn = '';
-        $type = '';
-        require File::build_path(array('view', 'view.php'));
+        if (isset($_SESSION['login'])&&$_SESSION['isAdmin']=='1')
+        {
+            $view = 'form';
+            $name = 'created';
+            $isbn = '';
+            $type = '';
+            require File::build_path(array('view', 'view.php'));
+        } else if (isset($_SESSION['login'])) {
+            echo '<p>Vous n\'avez pas la permission de réaliser cette action</p>';
+            header('Location: index.php');
+        } else {
+            ControllerUtilisateur::login();
+        }
     }
 
     public static function created()
@@ -62,12 +70,20 @@ class controllerBook
     }
 
     public static function update() {
+        if (isset($_SESSION['login'])&&$_SESSION['isAdmin']=='1')
+        {
             $view = 'form';
             $name = 'updated';
             $isbn = $_GET['isbn'];
             $type = 'readonly';
             $book = ModelBook::select($isbn)[0];
             require File::build_path(array('view', 'view.php'));
+        } else if (isset($_SESSION['login'])) {
+            echo '<p>Vous n\'avez pas la permission de réaliser cette action</p>';
+            header('Location: index.php');
+        } else {
+            ControllerUtilisateur::login();
+        }
     }
 
     public static function updated() {
