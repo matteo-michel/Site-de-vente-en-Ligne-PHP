@@ -48,4 +48,5 @@ class ModelAuteur extends Model {
             die();
         }
     }
+
 }

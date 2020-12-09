@@ -26,7 +26,7 @@ if ($tab != false)
                 echo '<p>Titre : ' . $livreCommande->get("titre") . '</p>';
                 echo '<p> Auteurs : ' . $resultAuteur . '</p>';
                 echo '<p> Quantite : ' . $book->get('quantite') . '</p>';
-                echo '<p> Livre de numéro : <a href="index.php?=actionread&isbn=' . rawurlencode($livreCommande->get('isbn')) . '">' . htmlspecialchars($livreCommande->get('isbn')) . '</a></p>';
+                echo '<p> Livre de numéro : <a href="index.php?action=read&isbn=' . rawurlencode($livreCommande->get('isbn')) . '">' . htmlspecialchars($livreCommande->get('isbn')) . '</a></p>';
                 echo '</div>';
                 echo '<div class="panier">';
                 echo '</div>';

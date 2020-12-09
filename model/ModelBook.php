@@ -288,4 +288,28 @@ class ModelBook extends Model
             die();
         }
     }
+
+    public static function getBooksFromAuteur($numAuteur) {
+        try {
+            $sql= "SELECT * 
+            FROM book b 
+            JOIN bookAuteur bA ON b.isbn = bA.isbn 
+            JOIN auteur a ON a.numAuteur = bA.numAuteur
+            WHERE a.numAuteur = :numAuteur";
+            $req_prep = Model::$pdo->prepare($sql);
+            $values = array("numAuteur" => $numAuteur);
+            $req_prep->execute($values);
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, "ModelBook");
+            $tab=$req_prep->fetchAll();
+            if(empty($tab)) return false;
+            return $tab;
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo 'Une erreur est survenue <a href="index.php"> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
 }

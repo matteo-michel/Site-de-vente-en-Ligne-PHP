@@ -49,8 +49,7 @@
         $auteurs = ModelAuteur::getBookAuteurs($bISBN);
 
         foreach ($auteurs as $a) {
-            $resultAuteur = $resultAuteur . $a->get('prenomAuteur') . " " . $a->get('nomAuteur') . ", ";
-        }
+            $resultAuteur = $resultAuteur . '<a href="index.php?controller=auteur&action=read&numAuteur=' . $a->get('numAuteur') . '">' . $a->get('prenomAuteur') . " " . $a->get('nomAuteur') . '</a>' . ", ";        }
 
         $resultAuteur = rtrim($resultAuteur, ', ');
 
@@ -88,11 +87,22 @@
 
         echo '</div></div>';
     }
+
     echo '<div>';
     echo "<ul class=\"pagination text-center\">";
     if ($order_by == '') {
+
+        if(isset($_GET['page'])) {
+            $page = $_GET['page'];
+        } else {
+            $page = 1;
+        }
+
         for ($i = 1; $i <= floor(ModelBook::getAmount() / 11) + 1; $i++) {
-            echo "<li class=\"page-item\"><a class=\"page-link\" href=\"index.php?page=" . $i . "\">$i</a></li>";
+            if($i == $page)
+                echo "<li class=\"page-item active\"><a class=\"page-link\" href=\"index.php?page=" . $i . "\">$i</a></li>";
+            else
+                echo "<li class=\"page-item\"><a class=\"page-link\" href=\"index.php?page=" . $i . "\">$i</a></li>";
         }
     }
     echo "</ul>";

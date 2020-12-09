@@ -15,9 +15,15 @@ class controllerAuteur
 
     public static function read()
     {
-        $auteur = ModelAuteur::select($_GET['numAuteur']);
-        $view = 'detail';
-        require File::build_path(array('view', 'view.php'));
+        if(isset($_GET['numAuteur'])) {
+            $books = ModelBook::getBooksFromAuteur(($_GET['numAuteur']));
+            if($books != false) {
+                $view = 'detail';
+                require File::build_path(array('view', 'view.php'));
+            }
+        } else {
+            controllerBook::readAll();
+        }
     }
 
     public static function delete()
@@ -99,4 +105,5 @@ class controllerAuteur
             ControllerUtilisateur::login();
         }
     }
+
 }

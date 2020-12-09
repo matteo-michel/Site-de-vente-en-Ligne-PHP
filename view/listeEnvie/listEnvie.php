@@ -1,7 +1,10 @@
 <?php
 if (!$tab)
 {
+    echo '<div class="panierEmpty">';
     echo '<p>La liste d\'envie est vide !</p>';
+    echo '<a class="btn btn-primary" href="index.php"><i class="fas fa-chevron-left"></i> Retour aux achats</a>';
+    echo '</div>';
 } else {
     foreach ($tab as $u) {
         $bISBN = $u->get('isbn');

@@ -2,8 +2,9 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>Accueil</title>
+        <title>Book'Sell</title>
 
+        <link rel="icon" href="../ressource/icon.png">
         <link rel="stylesheet" href="../assets/bootstrap.min.css">
         <link rel="stylesheet" href="../CSS/form.css">
         <link rel="stylesheet" href="../CSS/home.css">

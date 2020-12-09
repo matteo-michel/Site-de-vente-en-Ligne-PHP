@@ -61,7 +61,7 @@ class controllerPanier
         if (!isset($_SESSION['login']))
         {
             echo '<div class="alert alert-danger">Vous devez d\'abord vous connecter !</div>';
-            self::login();
+            ControllerUtilisateur::login();
         } else
         {
             $view = 'valideAchat';
