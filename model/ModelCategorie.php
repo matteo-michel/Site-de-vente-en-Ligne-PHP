@@ -28,4 +28,27 @@ class ModelCategorie extends Model
             $this->nomCategorie = $nomCategorie;
         }
     }
+
+    public static function getCategoriesFromBook($isbn) {
+        try {
+            $sql= "SELECT * 
+            FROM categorie c 
+            JOIN bookCategorie bc ON c.numCategorie = bc.numCategorie 
+            WHERE bc.isbn = :isbn";
+            $req_prep = Model::$pdo->prepare($sql);
+            $values = array("isbn" => $isbn);
+            $req_prep->execute($values);
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, "ModelCategorie");
+            $tab=$req_prep->fetchAll();
+            if(empty($tab)) return false;
+            return $tab;
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo 'Une erreur est survenue <a href="index.php"> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
 }

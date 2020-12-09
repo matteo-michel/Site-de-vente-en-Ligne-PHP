@@ -17,7 +17,12 @@ if (!$tab)
         }
 
         echo '<div class="livre">';
-        echo '<img src="../../ressource/linux.png">';
+
+        if(!$livre->get('image')) {
+            echo '<img src="../../ressource/linux.png"/>';
+        } else {
+            echo '<img src="data:image/jpeg;base64,'.base64_encode($livre->get('image')).'"/>';
+        }
         echo '<div class="bookInfo">';
         echo '<p>Titre : ' . $livre->get("titre") . '</p>';
         echo '<p> Auteurs : ' . $resultAuteur . '</p>';

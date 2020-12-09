@@ -11,7 +11,7 @@
     box-sizing: border-box;
 }
 
-.panier .btn-primary {
+.panier .btn-primary, .buttonPanier {
     background-color: #3498db;
     border-color: #3498db;
     border-radius: 5px;
@@ -19,23 +19,23 @@
     position: relative;
 }
 
-.panier .btn-primary:hover {
+.panier .btn-primary:hover, .buttonPanier:hover{
     background-color: #018be7;
     border-color: #018be7;
 }
 
-.panier .btn-warning {
+.panier .btn-warning, .buttonEnvie {
     background-color: #ff7675;
     border-color: #ff7675;
 
 }
 
-.panier .btn-warning:hover {
+.panier .btn-warning:hover, .buttonEnvie:hover {
     background-color: #d45655;
     border-color: #d45655;
 }
 
-.panier .btn {
+.panier .btn, .buttonEnvie, .buttonPanier {
     border-radius: 5px;
     display: block;
     position: relative;
@@ -103,6 +103,6 @@ img {
     margin: 0;
     width: 100%;
     text-align: center;
-    z-index: 1;
+    z-index: 10;
     opacity: 80%;
 }

@@ -2,6 +2,14 @@
 $user = modelUtilisateur::select($login)[0];
 ($user->get('isAdmin') == 1)? $admin = 'Administrateur': $admin = 'Utilisateur';
 ($testAdmin)? $pronom = 'le': $pronom = 'mon';
+
+$updatePassword = '';
+if($login == $_SESSION['login']) {
+    $updatePassword = '<div class="text-center updatePassword">
+                                <a role="button" class="btn btn-success" href="#">Modifier le mot de passe</a>
+                            </div>';
+}
+
 echo '
 <div class="page-content page-container" id="page-content">
     <div class="padding">
@@ -32,15 +40,14 @@ echo '
                                 <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Modifications</h6>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <a href="index.php?controller=utilisateur&action=update">
-                                        <h6 class="text-muted f-w-400">Modifier ' . $pronom . ' profil</h6></a>
+                                        <a role="button" class="btn btn-primary" href="index.php?controller=utilisateur&action=update">Modifier ' . $pronom . ' profil</a>
                                     </div>
                                     <div class="col-sm-6">
-                                        <a href="index.php?controller=utilisateur&action=delete&login=' . $user->get('login') . '">
-                                        <h6 class="text-muted f-w-400">Supprimer ' . $pronom . ' profil</h6></a>
+                                        <a role="button" class="btn btn-danger" href="index.php?controller=utilisateur&action=delete&login=' . $user->get('login') . '">Supprimer ' . $pronom . ' profil</a>
                                     </div>
                                 </div>
-                            </div>
+                            </div>' .
+                            $updatePassword . '
                         </div>
                     </div>
                 </div>
