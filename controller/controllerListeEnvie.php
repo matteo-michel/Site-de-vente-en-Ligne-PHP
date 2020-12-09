@@ -13,17 +13,25 @@ class controllerListeEnvie
     }
 
     public static function create(){
-        $isbn = $_GET['isbn'];
-        $login = $_SESSION['login'];
-        ModelListeEnvie::ajouter($login, $isbn);
-        header('Location: index.php');
+        if(isset($_GET['isbn']) && isset($_SESSION['login'])) {
+            $isbn = $_GET['isbn'];
+            $login = $_SESSION['login'];
+            ModelListeEnvie::ajouter($login, $isbn);
+            header('Location: index.php');
+        } else {
+            self::readAll();
+        }
     }
 
     public static function delete(){
-        $isbn = $_GET['isbn'];
-        $login = $_SESSION['login'];
-        ModelListeEnvie::supprimer($login, $isbn);
-        header('Location: index.php?controller=listeEnvie');
+        if(isset($_GET['isbn']) && isset($_SESSION['login'])) {
+            $isbn = $_GET['isbn'];
+            $login = $_SESSION['login'];
+            ModelListeEnvie::supprimer($login, $isbn);
+            header('Location: index.php?controller=listeEnvie');
+        } else {
+            self::readAll();
+        }
     }
 
 }

@@ -1,7 +1,10 @@
 <?php
     $compteurPrix = 0;
     if(empty($tab)) {
-        echo 'Le panier est vide !';
+        echo '<div class="panierEmpty">';
+        echo '<p>Le panier est vide !</p>';
+        echo '<a class="btn btn-primary" href="index.php"><i class="fas fa-chevron-left"></i> Retour aux achats</a>';
+        echo '</div>';
     } else {
         echo '<div class="home-content">';
         foreach ($tab as $t){
@@ -69,7 +72,28 @@
 
         echo '<div class="panier-info">';
         echo 'Le prix total de la commande est de : ' . $compteurPrix . '€';
-        echo '<a class="btn btn-success" href="index.php?controller=panier&action=acheterPanier">Passer la commande</a>';
+        echo '<a class="btn btn-success" data-toggle="modal" data-target="#validerCommande">Passer la commande</a>';
         echo '<a class="btn btn-danger" href="index.php?controller=panier&action=clear">Vider le panier</a>';
         echo '</div>';
+
+        echo '
+            <div class="modal fade" id="validerCommande" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Commande</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Voulez-vous validez votre commande ?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+                    <a role="button" class="btn btn-success" href="index.php?controller=panier&action=acheterPanier">Oui</a>
+                  </div>
+                </div>
+              </div>
+            </div>';
     }

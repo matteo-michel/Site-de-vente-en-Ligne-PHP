@@ -19,41 +19,77 @@ class controllerEditeur
 
     public static function create()
     {
-        $view = 'form';
-        $name = 'created';
-        $numEditeur = '';
-        require File::build_path(array('view', 'view.php'));
+        if (isset($_SESSION['login'])&&$_SESSION['isAdmin']=='1') {
+            $view = 'form';
+            $name = 'created';
+            $numEditeur = '';
+            require File::build_path(array('view', 'view.php'));
+        } else if (isset($_SESSION['login'])) {
+            echo '<p class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</p>';
+            self::readAll();
+        } else {
+            ControllerUtilisateur::login();
+        }
     }
 
     public static function delete()
     {
-        ModelEditeur::delete();
-        self::readAll();
+        if (isset($_SESSION['login'])&&$_SESSION['isAdmin']=='1') {
+            ModelEditeur::delete();
+            self::readAll();
+        } else if (isset($_SESSION['login'])) {
+            echo '<p class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</p>';
+            self::readAll();
+        } else {
+            ControllerUtilisateur::login();
+        }
     }
 
     public static function created()
     {
-        $data = array('nomEditeur' => $_POST['nomEditeur']);
-        ModelEditeur::saveGen($data);
-        self::readAll();
+        if (isset($_SESSION['login'])&&$_SESSION['isAdmin']=='1') {
+            $data = array('nomEditeur' => $_POST['nomEditeur']);
+            ModelEditeur::saveGen($data);
+            self::readAll();
+            echo "<div class='alert alert-success'>L\'éditeur a bien été cré ! </div>";
+        } else if (isset($_SESSION['login'])) {
+            echo '<p class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</p>';
+            self::readAll();
+        } else {
+            ControllerUtilisateur::login();
+        }
     }
 
     public static function update() {
-        $view = 'form';
-        $name = 'updated';
-        $numEditeur = $_GET['numEditeur'];
-        $editeur = ModelEditeur::select($numEditeur)[0];
-        require File::build_path(array('view', 'view.php'));
+        if (isset($_SESSION['login'])&&$_SESSION['isAdmin']=='1') {
+            $view = 'form';
+            $name = 'updated';
+            $numEditeur = $_GET['numEditeur'];
+            $editeur = ModelEditeur::select($numEditeur)[0];
+            require File::build_path(array('view', 'view.php'));
+        } else if (isset($_SESSION['login'])) {
+            echo '<p class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</p>';
+            self::readAll();
+        } else {
+            ControllerUtilisateur::login();
+        }
     }
 
     public static function updated() {
-        $numEditeur = $_POST['numEditeur'];
-        $nomEditeur = $_POST['nomEditeur'];
-        $data = array('numEditeur' => $numEditeur,
-            'nomEditeur' => $nomEditeur);
-        modelEditeur::update($data);
+        if (isset($_SESSION['login'])&&$_SESSION['isAdmin']=='1') {
+            $numEditeur = $_POST['numEditeur'];
+            $nomEditeur = $_POST['nomEditeur'];
+            $data = array('numEditeur' => $numEditeur,
+                'nomEditeur' => $nomEditeur);
+            modelEditeur::update($data);
 
-        self::readAll();
-        echo "L'editeur a bien été modifié !";
+            self::readAll();
+            echo "<div class='alert alert-success'>L\'éditeur a bien été modifié ! </div>";
+        } else if (isset($_SESSION['login'])) {
+            echo '<p class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</p>';
+            self::readAll();
+        } else {
+            ControllerUtilisateur::login();
+        }
     }
 }

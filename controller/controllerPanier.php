@@ -60,7 +60,7 @@ class controllerPanier
     {
         if (!isset($_SESSION['login']))
         {
-            echo "Vous devez d'abord vous connecter !";
+            echo '<div class="alert alert-danger">Vous devez d\'abord vous connecter !</div>';
             self::login();
         } else
         {
@@ -73,7 +73,7 @@ class controllerPanier
     {
         if (!isset($_SESSION['login']))
         {
-            echo "Vous devez d'abord vous connecter !";
+            echo '<div class="alert alert-danger">Vous devez d\'abord vous connecter !</div>';
             self::login();
         } else
         {
@@ -96,6 +96,7 @@ class controllerPanier
                 ModelBook::updateStock($item->get('isbn'), $item->get('quantite'));
             }
             self::clear();
+            echo "<div class='alert alert-success'>La commande a bien été validée ! </div>";
         }
     }
 

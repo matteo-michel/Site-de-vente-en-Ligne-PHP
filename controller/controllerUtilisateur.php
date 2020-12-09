@@ -47,17 +47,21 @@ class ControllerUtilisateur {
 
     public static function login_end()
     {
+        if(!isset($_POST['login']) || !$_POST['password']) {
+            controllerBook::readAll();
+            return;
+        }
         $login = $_POST['login'];
         $mdp = $_POST['password'];
         $user = ModelUtilisateur::testLogin($login);
         if (!$user || !password_verify($mdp, $user->get('password'))) {
             session_destroy();
-            echo "Mauvais mot de passe";
+            echo '<p class="alert alert-danger">Aucun mot de passe ne correspond à cet utilisateur !</p>';
             self::login();
         }
         elseif (!is_null($user->get('nonce'))) {
             session_destroy();
-            echo "Email non vérifié";
+            echo '<p class="alert alert-danger">L\'email n\'est pas vérifié !</p>';
             self::login();
         }else {
             $_SESSION['login'] = $login;
@@ -110,14 +114,21 @@ class ControllerUtilisateur {
     }
 
     public static function updated() {
-        $nom = $_POST['nom'];
-        $prenom = $_POST['prenom'];
-        $email = $_POST['email'];
-        $data = array('nom' => $nom, 'prenom' => $prenom, 'email' => $email);
-        modelUtilisateur::update($data);
+        if (isset($_SESSION['login'])&&$_SESSION['isAdmin']=='1') {
+            $nom = $_POST['nom'];
+            $prenom = $_POST['prenom'];
+            $email = $_POST['email'];
+            $data = array('nom' => $nom, 'prenom' => $prenom, 'email' => $email);
+            modelUtilisateur::update($data);
 
-        echo "Le profile a bien été modifié !";
-        self::profile();
+            echo "<div class='alert alert-success'>Le profil a bien été modifié ! </div>";
+            self::profile();
+        } else if (isset($_SESSION['login'])) {
+            echo '<p class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</p>';
+            self::readAll();
+        } else {
+            ControllerUtilisateur::login();
+        }
 
     }
 
@@ -138,7 +149,7 @@ class ControllerUtilisateur {
                 else
                     self::readAll();
             } else {
-                echo "Vous n'avez pas le droit de réaliser cela !";
+                echo '<p class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</p>';
                 self::readAll();
             }
         } else {

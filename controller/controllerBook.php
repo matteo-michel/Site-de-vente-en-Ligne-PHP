@@ -32,8 +32,8 @@ class controllerBook
             $type = '';
             require File::build_path(array('view', 'view.php'));
         } else if (isset($_SESSION['login'])) {
-            echo '<p class="erreur">Vous n\'avez pas la permission de réaliser cela !</p>';
-            header('Location: index.php');
+            echo '<p class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</p>';
+            self::readAll();
         } else {
             ControllerUtilisateur::login();
         }
@@ -41,36 +41,43 @@ class controllerBook
 
     public static function created()
     {
-        $data = array(
-            'titre' => $_POST['titre'],
-            'numEditeur' => $_POST['numEditeur'],
-            'prix' => $_POST['prix'],
-            'dateParution' => $_POST['date'],
-            'resume' => $_POST['resume'],
-            'image' => addslashes(file_get_contents($_FILES['image']['tmp_name'])));
-        ModelBook::saveGen($data);
-        $listAuteurs = $_POST['numAuteur'];
-        foreach ($listAuteurs as $la)
-        {
+        if (isset($_SESSION['login'])&&$_SESSION['isAdmin']=='1') {
             $data = array(
-                'isbn' => $_POST['isbn'],
-                'numAuteur' => $la
-            );
-            ModelBook::saveBookAuteur($data);
+                'titre' => $_POST['titre'],
+                'numEditeur' => $_POST['numEditeur'],
+                'prix' => $_POST['prix'],
+                'dateParution' => $_POST['date'],
+                'resume' => $_POST['resume'],
+                'image' => addslashes(file_get_contents($_FILES['image']['tmp_name'])));
+            ModelBook::saveGen($data);
+            $listAuteurs = $_POST['numAuteur'];
+            foreach ($listAuteurs as $la) {
+                $data = array(
+                    'isbn' => $_POST['isbn'],
+                    'numAuteur' => $la
+                );
+                ModelBook::saveBookAuteur($data);
+            }
+            $listCategorie = $_POST['numCategorie'];
+            foreach ($listCategorie as $item) {
+                $data = array(
+                    'isbn' => $_POST['isbn'],
+                    'numCategorie' => $item
+                );
+                ModelBook::saveBookCategorie($data);
+            }
+            self::readAll();
+            echo "<div class='alert alert-success'>Le livre a bien été créé ! </div>";
+        } else if (isset($_SESSION['login'])) {
+            echo '<p class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</p>';
+            self::readAll();
+        } else {
+            ControllerUtilisateur::login();
         }
-        $listCategorie = $_POST['numCategorie'];
-        foreach ($listCategorie as $item) {
-            $data = array(
-                'isbn' => $_POST['isbn'],
-                'numCategorie' => $item
-            );
-            ModelBook::saveBookCategorie($data);
-        }
-        self::readAll();
     }
 
     public static function update() {
-        if (isset($_SESSION['login'])&&$_SESSION['isAdmin']=='1')
+        if (isset($_SESSION['login']) && $_SESSION['isAdmin']=='1')
         {
             $view = 'form';
             $name = 'updated';
@@ -87,29 +94,36 @@ class controllerBook
     }
 
     public static function updated() {
-        $isbn = $_POST['isbn'];
-        $titre = $_POST['titre'];
-        $prix = $_POST['prix'];
-        $dateParution = $_POST['date'];
-        $resume = $_POST['resume'];
-        $numEditeur = $_POST['numEditeur'];
-        $listeAuteur = $_POST['numAuteur'];
-        $listeCategorie = $_POST['numCategorie'];
-        $stock = $_POST['stock'];
+        if (isset($_SESSION['login']) && $_SESSION['isAdmin']=='1') {
+            $isbn = $_POST['isbn'];
+            $titre = $_POST['titre'];
+            $prix = $_POST['prix'];
+            $dateParution = $_POST['date'];
+            $resume = $_POST['resume'];
+            $numEditeur = $_POST['numEditeur'];
+            $listeAuteur = $_POST['numAuteur'];
+            $listeCategorie = $_POST['numCategorie'];
+            $stock = $_POST['stock'];
 
-        modelBook::updateBookAuteur($isbn,$listeAuteur);
-        modelBook::updateBookCategorie($isbn,$listeCategorie);
+            modelBook::updateBookAuteur($isbn, $listeAuteur);
+            modelBook::updateBookCategorie($isbn, $listeCategorie);
 
-        $data = array('isbn' => $isbn,
-            'titre' => $titre,
-            'numEditeur' => $numEditeur,
-            'prix' => $prix,
-            'dateParution' => $dateParution,
-            'resume' => $resume,
-            'stock' => $stock);
-        modelBook::update($data);
-        self::readAll();
-        echo "Le livre a bien été modifié !";
+            $data = array('isbn' => $isbn,
+                'titre' => $titre,
+                'numEditeur' => $numEditeur,
+                'prix' => $prix,
+                'dateParution' => $dateParution,
+                'resume' => $resume,
+                'stock' => $stock);
+            modelBook::update($data);
+            self::readAll();
+            echo "<div class='alert alert-success'>Le livre a bien été modifié ! </div>";
+        } else if (isset($_SESSION['login'])) {
+            echo '<div class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</div>';
+            controllerBook::readAll();
+        } else {
+            ControllerUtilisateur::login();
+        }
     }
 
     public static function ajouterListeEnvie(){
@@ -137,7 +151,7 @@ class controllerBook
             ModelBook::delete();
             header('Location: index.php');
         } else {
-            echo "Vous n'avez pas le droit de réaliser cela !";
+            echo '<div class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</div>';
             controllerUtilisateur::login();
         }
     }

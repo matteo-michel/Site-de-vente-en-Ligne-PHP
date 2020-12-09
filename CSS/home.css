@@ -1,3 +1,4 @@
+
 .pagination {
     justify-content: center;
 }
@@ -69,6 +70,7 @@ img {
 
 .recherche form {
     text-align: center;
+    margin-bottom: 0;
 }
 
 .recherche {
@@ -96,9 +98,11 @@ img {
 
 .alert {
     position: fixed;
+    display: block;
     bottom: 0;
     margin: 0;
     width: 100%;
     text-align: center;
     z-index: 1;
+    opacity: 80%;
 }

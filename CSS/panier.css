@@ -5,3 +5,19 @@
     align-items: center;
     line-height: 50px;
 }
+
+.panierEmpty > p{
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.panierEmpty {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.panierEmpty .btn-primary {
+    margin: auto;
+}

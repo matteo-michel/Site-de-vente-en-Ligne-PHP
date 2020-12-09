@@ -20,7 +20,7 @@
     <body>
         <nav class="navbar navbar-expand navbar-dark bg-dark">
             <ul class="navbar-nav mr-auto">
-            <a href="index.php" class="navbar-brand">Book'Sell</a>
+                <a href="index.php" class="navbar-brand">Book'Sell</a>
                 <?php
                 if (!isset($_SESSION['login'])) {
                     echo "</ul>";
