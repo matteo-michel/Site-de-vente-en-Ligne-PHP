@@ -4,10 +4,7 @@
         <legend>Changer de Mot de Passe :</legend>
             <div class="form-group">
                 <input type='hidden' name='action' value='<?php echo $name ?>'>
-                <input type='hidden' name='login' value='<?php echo $_SESSION['login'] ?>'>
-                <label for="old_password">Ancien Mot de passe</label> :
-                <input type="password" name="old_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Le mot de passe doit contenir au moins 8 caractères,
-            une lettre majuscule, minuscule et un chiffre" id="old_password" class="form-control" required/>
+                <input type='hidden' name='login' value='<?php echo $user->get('login') ?>'>
             </div>
             <div class="form-group">
                 <label for="new_password">Nouveau Mot De Passe</label> :

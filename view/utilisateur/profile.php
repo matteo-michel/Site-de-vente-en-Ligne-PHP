@@ -6,7 +6,7 @@ $user = modelUtilisateur::select($login)[0];
 $updatePassword = '';
 if($login == $_SESSION['login']) {
     $updatePassword = '<div class="text-center updatePassword">
-                                <a role="button" class="btn btn-success" href="#">Modifier le mot de passe</a>
+                                <a role="button" class="btn btn-success" href="index.php?controller=utilisateur&action=updatePassword">Modifier le mot de passe</a>
                             </div>';
 }
 

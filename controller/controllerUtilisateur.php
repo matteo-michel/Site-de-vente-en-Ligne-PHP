@@ -22,20 +22,24 @@ class ControllerUtilisateur {
     {
         if(isset($_POST['isAdmin'])) $admin = 1;
         else $admin = 0;
-        $nonce = Security::generateRandomHex();
-        $login = $_POST['login'];
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $data = array(
-            'password' => $password,
-            'email' => $_POST['email'],
-            'nom' => $_POST['nom'],
-            'prenom' => $_POST['prenom'],
-            'isAdmin' => $admin,
-            'nonce' => $nonce);
-        ModelUtilisateur::saveGen($data);
-        ModelUtilisateur::sendMail($login,$_POST['email'],$nonce);
-        self::readAll();
-
+        if ($_POST['password']!=''&&$_POST['email']!=''&&$_POST['nom']!=''&&$_POST['prenom']!='') {
+            $nonce = Security::generateRandomHex();
+            $login = $_POST['login'];
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $data = array(
+                'password' => $password,
+                'email' => $_POST['email'],
+                'nom' => $_POST['nom'],
+                'prenom' => $_POST['prenom'],
+                'isAdmin' => $admin,
+                'nonce' => $nonce);
+            ModelUtilisateur::saveGen($data);
+            ModelUtilisateur::sendMail($login, $_POST['email'], $nonce);
+            self::login();
+        }else {
+            echo '<p class="alert alert-danger">Veuillez remplir tous les champs !</p>';
+            self::register();
+        }
     }
 
     public static function login()
@@ -47,7 +51,7 @@ class ControllerUtilisateur {
 
     public static function login_end()
     {
-        if(!isset($_POST['login']) || !$_POST['password']) {
+        if(!isset($_POST['login']) || !isset($_POST['password'])) {
             controllerBook::readAll();
             return;
         }
@@ -56,7 +60,7 @@ class ControllerUtilisateur {
         $user = ModelUtilisateur::testLogin($login);
         if (!$user || !password_verify($mdp, $user->get('password'))) {
             session_destroy();
-            echo '<p class="alert alert-danger">Aucun mot de passe ne correspond à cet utilisateur !</p>';
+            echo '<p class="alert alert-danger">Le mot de passe ne correspond pas à cet utilisateur !</p>';
             self::login();
         }
         elseif (!is_null($user->get('nonce'))) {
@@ -167,6 +171,103 @@ class ControllerUtilisateur {
         self::login();
     }
 
+    public static function updatePassword()
+    {
+        if (isset($_SESSION['login'])){
+            $view = 'changePassword';
+            $name = 'end_updatePassword';
+            require File::build_path(array('view','view.php'));
+        } else {
+            self::login();
+        }
+    }
+
+    public static function end_updatePassword()
+    {
+        if (isset($_SESSION['login'])){
+            if ($_POST['old_password']!=''&&$_POST['new_password']!='') {
+                $user = modelUtilisateur::select($_SESSION['login'])[0];
+                $oldPassword = $_POST['old_password'];
+                if (password_verify($oldPassword, $user->get('password'))) {
+                    $newPassword = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
+                    $data = array('password' => $newPassword);
+                    modelUtilisateur::update($data);
+                    header('Location: index.php?controller=utilisateur&action=profile');
+                } else {
+                    echo '<p class="alert alert-danger">L\'ancien mot de passe n\'est pas le bon !</p>';
+                    self::updatePassword();
+                }
+            } else {
+                echo '<p class="alert alert-danger">Veuillez remplir tous les champs !</p>';
+                self::updatePassword();
+            }
+        } else {
+            self::login();
+        }
+    }
+
+    public static function forgotPassword()
+    {
+            $view = 'forgotPassword';
+            $name = 'middle_forgotPassword';
+            require File::build_path(array('view','view.php'));
+    }
+
+    public static function middle_forgotPassword()
+    {
+        if ($_POST['login']!='') {
+            $user = modelUtilisateur::select($_POST['login']);
+            if (!$user) {
+                echo '<p class="alert alert-danger">Aucun utilisateur ne possède ce login</p>';
+                self::forgotPassword();
+                return;
+            } else
+            {
+                $user = $user[0];
+            }
+            $userEmail = $user->get('email');
+            $nonce = Security::generateRandomHex();
+            $data = array('password' => $nonce);
+            modelUtilisateur::update($data);
+            ModelUtilisateur::sendMailPassword($_POST['login'], $userEmail, $nonce);
+            echo '<p class="alert alert-success">Un email vous a été envoyé !</p>';
+        } else {
+            echo '<p class="alert alert-danger">Veuillez remplir tous les champs !</p>';
+            self::forgotPassword();
+        }
+    }
+
+    public static function endMidlle_forgotPassword()
+    {
+        if ($_GET['login']!=''&&$_GET['nonce']!='') {
+            $user = modelUtilisateur::select($_GET['login'])[0];
+            if (!$user) {
+                echo '<p class="alert alert-danger">Aucun utilisateur ne possède ce login</p>';
+                self::forgotPassword();
+            }
+            if ($user->get('password')==$_GET['nonce']){
+                $view = 'changeForgotPassword';
+                $name = 'end_forgotPassword';
+                require File::build_path(array('view','view.php'));
+            }
+        } else {
+            echo '<p class="alert alert-danger">Veuillez remplir tous les champs !</p>';
+            self::forgotPassword();
+        }
+    }
+
+    public static function end_forgotPassword()
+    {
+        if ($_POST['new_password']!='') {
+            $newPassword = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
+            $data = array('password' => $newPassword);
+            modelUtilisateur::update($data);
+            header('Location: index.php?controller=utilisateur&action=profile');
+        } else {
+            echo '<p class="alert alert-danger">Veuillez remplir tous les champs !</p>';
+            self::updatePassword();
+        }
+    }
 }
 
 
