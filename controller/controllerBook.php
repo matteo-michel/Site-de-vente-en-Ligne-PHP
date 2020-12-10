@@ -148,8 +148,38 @@ class controllerBook
     public static function delete()
     {
         if (isset($_SESSION['login']) && $_SESSION['isAdmin'] == '1') {
-            ModelBook::delete();
+            $data = array('isExiste' => 0);
+            ModelBook::update($data);
             header('Location: index.php');
+        } else {
+            echo '<div class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</div>';
+            controllerUtilisateur::login();
+        }
+    }
+
+    public static function readDelete()
+    {
+        $book = ModelBook::selectAll('');
+        $view = 'detailDelete';
+        require File::build_path(array('view', 'view.php'));
+    }
+
+    public static function safeReset(){
+        if (isset($_SESSION['login']) && $_SESSION['isAdmin'] == '1') {
+            $data = array('isExiste' => 1);
+            ModelBook::update($data);
+            header('Location: index.php?controller=book&action=readDelete');
+        } else {
+            echo '<div class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</div>';
+            controllerUtilisateur::login();
+        }
+    }
+
+    public static function hardDelete()
+    {
+        if (isset($_SESSION['login']) && $_SESSION['isAdmin'] == '1') {
+            ModelBook::delete();
+            header('Location: index.php?controller=book&action=readDelete');
         } else {
             echo '<div class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</div>';
             controllerUtilisateur::login();

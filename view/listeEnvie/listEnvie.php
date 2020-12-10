@@ -31,10 +31,14 @@ if (!$tab)
         echo '</div>';
         echo '<div class="panier">';
         echo '<p>' . $livre->get("prix") . '<sup>€</sup></p>';
-        if ($livre->get('stock') == 0) {
-            echo '<p id="stock"> Rupture de stock </p>';
+        if ($livre->get('isExiste') == '1') {
+            if ($livre->get('stock') == 0) {
+                echo '<p id="stock"> Rupture de stock </p>';
+            } else {
+                echo "<a class='btn btn-primary' role='button' href=\"index.php?controller=panier&action=create&isbn=" . rawurlencode($bISBN) . "\"><i class=\"fas fa-shopping-basket\"></i>  Ajouter au panier</a>";
+            }
         } else {
-            echo "<a class='btn btn-primary' role='button' href=\"index.php?controller=panier&action=create&isbn=" . rawurlencode($bISBN) . "\"><i class=\"fas fa-shopping-basket\"></i>  Ajouter au panier</a>";
+            echo '<p id="stock"> Ce produit n\'est plus disponible à la vente ! </p>';
         }
         echo "<a class='btn btn-warning' role='button' href=\"index.php?controller=listeEnvie&action=delete&isbn=" . rawurlencode($bISBN) . "\"><i class=\"fas fa-times\"></i>  Supprimer de la liste d'envie</a>";
         echo '</div>';

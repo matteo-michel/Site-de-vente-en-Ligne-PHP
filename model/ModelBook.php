@@ -11,6 +11,7 @@ class ModelBook extends Model
     private $stock;
     private $image;
     private $resume;
+    private $isExiste;
 
     protected static $object = 'book';
     protected static $primary = 'isbn';
@@ -27,8 +28,8 @@ class ModelBook extends Model
         return false;
     }
 
-    public function __construct($isbn = NULL, $titre = NULL, $numEditeur = NULL, $prix = NULL, $dateParution = NULL, $stock = NULL, $image = NULL, $resume = NULL) {
-        if (!is_null($isbn) && !is_null($titre) && !is_null($numEditeur) && !is_null($prix) && !is_null($resume) && !is_null($dateParution) && !is_null($stock) && !is_null($image)) {
+    public function __construct($isbn = NULL, $titre = NULL, $numEditeur = NULL, $prix = NULL, $dateParution = NULL, $stock = NULL, $image = NULL, $resume = NULL, $isExiste = NULL) {
+        if (!is_null($isbn) && !is_null($titre) && !is_null($numEditeur) && !is_null($prix) && !is_null($resume) && !is_null($dateParution) && !is_null($stock) && !is_null($image) && !is_null($isExiste)) {
             $this->isbn = $isbn;
             $this->titre = $titre;
             $this->numEditeur = $numEditeur;
@@ -37,6 +38,7 @@ class ModelBook extends Model
             $this->stock = $stock;
             $this->image = $image;
             $this->resume = $resume;
+            $this->isExiste = $isExiste;
         }
     }
 
@@ -303,6 +305,34 @@ class ModelBook extends Model
             $tab=$req_prep->fetchAll();
             if(empty($tab)) return false;
             return $tab;
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo 'Une erreur est survenue <a href="index.php"> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+
+    public static function update($data){
+        $table_name = self::$object;
+        $primary_key = self::$primary;
+        $primary_key_value = $_GET["$primary_key"];
+        $result = '';
+
+        try {
+            foreach ($data as $key => $value) {
+                $result = $result .  $key . "='" . $value . "',";
+            }
+            $result = rtrim($result, ',');
+
+            $sql = "UPDATE $table_name SET $result WHERE $primary_key = :primary_key;";
+            $req = Model::$pdo->prepare($sql);
+
+            $values = array('primary_key' => $primary_key_value);
+            $req -> execute($values);
+
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();

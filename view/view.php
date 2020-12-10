@@ -42,6 +42,7 @@
                           <a class=\"dropdown-item\" href=\"index.php?controller=editeur\">Liste d'éditeur</a>
                           <a class=\"dropdown-item\" href=\"index.php?controller=categorie\">Liste de catégorie</a>
                           <a class=\"dropdown-item\" href=\"index.php?controller=auteur\">Liste d'auteur</a>
+                          <a class=\"dropdown-item\" href=\"index.php?controller=book&action=readDelete\">Liste livre supprimé</a>
                           <a class=\"dropdown-item\" href=\"index.php?action=create\">Ajouter un livre</a>
                         </div></li>";
                     }

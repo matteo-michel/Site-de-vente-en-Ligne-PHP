@@ -31,6 +31,9 @@ if (isset($_SESSION['login'])&&$_SESSION['isAdmin']=='1') $panel = $panel . '<h6
                                                                                 <a class="btn btn-danger" role="button" href="index.php?controller=book&action=delete&isbn=' . rawurlencode($book->get('isbn')) . '"><i class="fas fa-times"></i> Supprimer le livre</a>
                                                                             </div>
                                                                         </div>';
+
+if ($book->get('isExiste') == '0') $panel = '';
+
 echo '
 <div class="page-content page-container" id="page-content">
     <div class="padding">

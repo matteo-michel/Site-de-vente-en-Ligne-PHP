@@ -22,5 +22,5 @@ foreach ($tab as $u){
     echo "<a class='btn btn-danger' role='button' href=\"index.php?controller=utilisateur&action=delete&login=" . rawurlencode($uLogin) . "\"><i class=\"fas fa-times\"></i> Supprimer le compte</a>";
     echo '</div>';
     echo '</div>';
-    echo '</div>';
 }
+    echo '</div>';

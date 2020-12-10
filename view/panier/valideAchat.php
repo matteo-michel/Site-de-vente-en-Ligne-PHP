@@ -10,13 +10,17 @@
 
                 $testQuantite = false;
             }
+
+            $isExiste = ModelBook::select($item->get('isbn'))[0]->get('isExiste');
+            if ($isExiste == '0') {
+                echo "<div class='alert alert-danger'>Le livre de numero : " . $item->get('isbn') . " a été supprimé !</div>";
+
+                $testQuantite = false;
+            }
         }
-//        if ($testQuantite)  echo '<p><a href="index.php?controller=panier&action=acheterPanier_end">Valider la transaction</a></p>';
         if ($testQuantite) {
             controllerPanier::acheterPanier_end();
         }
         else {
             echo '<a role="button" class="btn btn-danger" href="index.php?controller=panier&action=readAll">Retour au panier</a>';
-            //header('Location: index.php?controller=panier&action=readAll');
-            //echo "<div class='alert alert-danger'>La commande n'a pas pu être validée ! </div>";
         }
