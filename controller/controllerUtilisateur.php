@@ -192,7 +192,9 @@ class ControllerUtilisateur {
                     $newPassword = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
                     $data = array('password' => $newPassword);
                     modelUtilisateur::update($data);
-                    header('Location: index.php?controller=utilisateur&action=profile');
+                    self::profile();
+                    echo '<p class="alert alert-success">Le mot de passe a été mis à jour !</p>';
+
                 } else {
                     echo '<p class="alert alert-danger">L\'ancien mot de passe n\'est pas le bon !</p>';
                     self::updatePassword();
@@ -231,6 +233,7 @@ class ControllerUtilisateur {
             modelUtilisateur::update($data);
             ModelUtilisateur::sendMailPassword($_POST['login'], $userEmail, $nonce);
             echo '<p class="alert alert-success">Un email vous a été envoyé !</p>';
+            controllerBook::readAll();
         } else {
             echo '<p class="alert alert-danger">Veuillez remplir tous les champs !</p>';
             self::forgotPassword();

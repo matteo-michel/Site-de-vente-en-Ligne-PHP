@@ -30,7 +30,7 @@
             <input type="checkbox"  name="isAdmin" id="isAdmin_id"/>
         </div>
         <div class="text-center">
-            <button type="submit" class="btn btn-success">Envoyer</button>
+            <button type="submit" class="btn btn-success">Envoyer <i class="fa fa-paper-plane"></i></button>
         </div>
       </fieldset>
     </form>

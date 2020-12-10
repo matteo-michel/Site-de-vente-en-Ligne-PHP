@@ -35,3 +35,9 @@ textarea {
 input[type=file] {
     overflow: hidden;
 }
+
+.loginLink {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
