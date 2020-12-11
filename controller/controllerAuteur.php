@@ -17,6 +17,7 @@ class controllerAuteur
     {
         if(isset($_GET['numAuteur'])) {
             $books = ModelBook::getBooksFromAuteur(($_GET['numAuteur']));
+            $auteur = ModelAuteur::select($_GET['numAuteur'])[0];
             if($books != false) {
                 $view = 'detail';
                 require File::build_path(array('view', 'view.php'));

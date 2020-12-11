@@ -6,22 +6,33 @@ if ($tab != false)
         $listeBookByNumCommande = ModelBookCommande::select($u->get('numCommande'));
         setlocale(LC_TIME, "fr_FR", "French");
         $date = utf8_encode(strftime("%d %B %G", strtotime($u->get('date'))));
+
         echo '<div class = "articles-commande">';
         echo '<p class="dateCommande">Commande effectué le ' . $date . '</p>';
         $prixTotal = 0;
+
         if (!$listeBookByNumCommande) {
             echo '<p> Les elements de cette commande n\'existent plus ! </p>';
+
         } else {
             foreach ($listeBookByNumCommande as $book) {
                 $livreCommande = ModelBook::select($book->get('isbn'))[0];
                 $resultAuteur = "";
                 $auteurs = ModelAuteur::getBookAuteurs($livreCommande->get('isbn'));
+
                 foreach ($auteurs as $a) {
                     $resultAuteur = $resultAuteur . $a->get('prenomAuteur') . " " . $a->get('nomAuteur') . ", ";
                 }
                 $resultAuteur = rtrim($resultAuteur, ', ');
+
                 echo '<div class="livre">';
-                echo '<img src="../../ressource/linux.png">';
+
+                if (!$livreCommande->get('image')) {
+                    echo '<img src="../../ressource/linux.png"/>';
+                } else {
+                    echo '<img src="data:image/jpeg;base64,' . base64_encode($livreCommande->get('image')) . '"/>';
+                }
+
                 echo '<div class="bookInfo">';
                 echo '<p>Titre : ' . $livreCommande->get("titre") . '</p>';
                 echo '<p> Auteurs : ' . $resultAuteur . '</p>';
@@ -33,6 +44,7 @@ if ($tab != false)
                 echo '</div>';
                 $prixTotal = $prixTotal + $livreCommande->get('prix') * $book->get('quantite');
             }
+
             echo '<p>Le prix total de la commande est : ' . $prixTotal . ' €</p>';
             echo '</div>';
         }

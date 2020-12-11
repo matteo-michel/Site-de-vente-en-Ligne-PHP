@@ -114,7 +114,8 @@ class controllerBook
                 'prix' => $prix,
                 'dateParution' => $dateParution,
                 'resume' => $resume,
-                'stock' => $stock);
+                'stock' => $stock,
+                'isExiste' => 1);
             modelBook::update($data);
             self::readAll();
             echo "<div class='alert alert-success'>Le livre a bien été modifié ! </div>";
@@ -146,10 +147,10 @@ class controllerBook
     }
 
     public static function delete()
+
     {
         if (isset($_SESSION['login']) && $_SESSION['isAdmin'] == '1') {
-            $data = array('isExiste' => 0);
-            ModelBook::update($data);
+            ModelBook::updateExiste(0);
             header('Location: index.php');
         } else {
             echo '<div class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</div>';
@@ -166,8 +167,7 @@ class controllerBook
 
     public static function safeReset(){
         if (isset($_SESSION['login']) && $_SESSION['isAdmin'] == '1') {
-            $data = array('isExiste' => 1);
-            ModelBook::update($data);
+            ModelBook::updateExiste(1);
             header('Location: index.php?controller=book&action=readDelete');
         } else {
             echo '<div class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</div>';

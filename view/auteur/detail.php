@@ -1,4 +1,5 @@
 <?php
+echo "<p>Livres écris par " . ucfirst($auteur->get('prenomAuteur')) . " " . ucfirst($auteur->get('nomAuteur')) . ":</p>";
 echo '<div class="home-content">';
 foreach ($books as $b) {
     $bISBN = $b->get('isbn');

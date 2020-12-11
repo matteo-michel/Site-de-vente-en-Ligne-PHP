@@ -315,22 +315,18 @@ class ModelBook extends Model
         }
     }
 
-    public static function update($data){
+    public static function updateExiste($data){
         $table_name = self::$object;
         $primary_key = self::$primary;
         $primary_key_value = $_GET["$primary_key"];
         $result = '';
 
         try {
-            foreach ($data as $key => $value) {
-                $result = $result .  $key . "='" . $value . "',";
-            }
-            $result = rtrim($result, ',');
 
-            $sql = "UPDATE $table_name SET $result WHERE $primary_key = :primary_key;";
+            $sql = "UPDATE $table_name SET isExiste = :data WHERE $primary_key = :primary_key;";
             $req = Model::$pdo->prepare($sql);
 
-            $values = array('primary_key' => $primary_key_value);
+            $values = array('primary_key' => $primary_key_value, 'data' => $data);
             $req -> execute($values);
 
         } catch (PDOException $e) {
