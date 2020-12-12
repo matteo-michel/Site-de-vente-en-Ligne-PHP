@@ -84,7 +84,7 @@ class   Model {
         foreach ($data as $key => $value)
           {
               $stringInto =  $stringInto . $key . ',';
-              $stringValue = $stringValue . "'" . addslashes($value) . "'" . ',';
+              $stringValue = $stringValue . "'" . $value . "'" . ',';
           }
         $stringInto = rtrim($stringInto,",") . ')';
         $stringValue = rtrim($stringValue, ",");
