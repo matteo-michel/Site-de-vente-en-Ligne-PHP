@@ -92,7 +92,7 @@
             {
                 echo '<div class="form-group">
                     <label for="image">Image</label> :
-                    <input type="file" class="" name = "image" accept=".jpeg, .jpg">
+                    <input type="file" class="" name = "image" accept=".jpeg, .jpg" required>
                     </div>';
 
             }

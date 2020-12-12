@@ -48,10 +48,8 @@ class controllerBook
                 'numEditeur' => $_POST['numEditeur'],
                 'prix' => $_POST['prix'],
                 'dateParution' => $_POST['date'],
-                'resume' => $_POST['resume']);
-            if(!empty($_FILES['image']['tmp_name'])) {
-               $data = $data + array('image' => addslashes(file_get_contents($_FILES['image']['tmp_name'])));
-            }
+                'resume' => $_POST['resume'],
+                'image' => file_get_contents($_FILES['image']['tmp_name']));
             ModelBook::saveGen($data);
             $listAuteurs = $_POST['numAuteur'];
             foreach ($listAuteurs as $la) {
@@ -99,10 +97,10 @@ class controllerBook
     public static function updated() {
         if (isset($_SESSION['login']) && $_SESSION['isAdmin']=='1') {
             $isbn = $_POST['isbn'];
-            $titre = $_POST['titre'];
+            $titre = addslashes($_POST['titre']);
             $prix = $_POST['prix'];
             $dateParution = $_POST['date'];
-            $resume = $_POST['resume'];
+            $resume = addslashes($_POST['resume']);
             $numEditeur = $_POST['numEditeur'];
             $listeAuteur = $_POST['numAuteur'];
             $listeCategorie = $_POST['numCategorie'];
