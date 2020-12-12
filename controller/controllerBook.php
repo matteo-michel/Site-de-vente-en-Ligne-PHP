@@ -44,11 +44,14 @@ class controllerBook
         if (isset($_SESSION['login'])&&$_SESSION['isAdmin']=='1') {
             $data = array(
                 'titre' => $_POST['titre'],
+                'stock' => $_POST['stock'],
                 'numEditeur' => $_POST['numEditeur'],
                 'prix' => $_POST['prix'],
                 'dateParution' => $_POST['date'],
-                'resume' => $_POST['resume'],
-                'image' => addslashes(file_get_contents($_FILES['image']['tmp_name'])));
+                'resume' => $_POST['resume']);
+            if(!empty($_FILES['image']['tmp_name'])) {
+               $data = $data + array('image' => addslashes(file_get_contents($_FILES['image']['tmp_name'])));
+            }
             ModelBook::saveGen($data);
             $listAuteurs = $_POST['numAuteur'];
             foreach ($listAuteurs as $la) {

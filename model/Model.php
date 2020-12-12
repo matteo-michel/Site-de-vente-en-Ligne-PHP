@@ -84,7 +84,7 @@ class   Model {
         foreach ($data as $key => $value)
           {
               $stringInto =  $stringInto . $key . ',';
-              $stringValue = $stringValue . "'" . $value . "'" . ',';
+              $stringValue = $stringValue . "'" . addslashes($value) . "'" . ',';
           }
         $stringInto = rtrim($stringInto,",") . ')';
         $stringValue = rtrim($stringValue, ",");
@@ -98,9 +98,10 @@ class   Model {
         if (Conf::getDebug()) {
           echo $e->getMessage();
         } else if ($e->getCode() == 23000){
-          echo "Ce login utilisateur existe déjà !";
-        }
-        else {
+            header("location:".  $_SERVER['HTTP_REFERER']);
+            //echo "Ce " . $primary_key . " existe déjà !";
+
+        } else {
           echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
         }
         die();
@@ -115,7 +116,7 @@ class   Model {
 
     try {
       foreach ($data as $key => $value) {
-        $result = $result .  $key . "='" . $value . "',";
+        $result = $result .  $key . "='" .  addslashes($value) . "',";
       }
       $result = rtrim($result, ',');
 

@@ -13,6 +13,14 @@ foreach ($categories as $c) {
 }
 $resultCat = rtrim($resultCat, ', ');
 
+if (!$book->get('image')) {
+    $image = '<img src="../../ressource/linux.png"/>';
+} else {
+    $image = '<img src="data:image/jpeg;base64,' . base64_encode($book->get('image')) . '"/>';
+}
+
+$date = date("d/m/Y", strtotime($book->get('dateParution')));
+
 $panel = '<h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Achats</h6>
                                                                         <div class="row">
                                                                             <div class="col-sm-6">
@@ -43,9 +51,9 @@ echo '
                     <div class="row m-l-0 m-r-0">
                         <div class="col-sm-4 bg-c-lite-green user-profile">
                             <div class="card-block text-center text-white">
-                                <div class="m-b-25">    
-                                <img src="data:image/jpeg;base64,' . base64_encode($book->get('image')) . '" alt="book-image"/>
-                                </div>
+                                <div class="m-b-25">' .
+                                $image .
+                                '</div>
                                 <h5 class="f-w-600">' . $book->get('titre') . '</h5>
                                 <p>' . $book->get('isbn') . '</p>
                                 <h6 class="f-w-600">Prix : ' . $book->get('prix') . '€</h6>
@@ -73,6 +81,12 @@ echo '
                                         <p class="m-b-10 f-w-600">Catégorie</p>
                                         <h6 class="text-muted f-w-400">' . $resultCat . '</h6>
                                     </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">Date de parution</p>
+                                        <h6 class="text-muted f-w-400">' . $date . '</h6>
+                                    </div>                                   
                                 </div>' . $panel . '
                             </div>
                         </div>

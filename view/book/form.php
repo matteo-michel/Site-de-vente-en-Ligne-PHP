@@ -3,7 +3,6 @@
         <fieldset>
             <legend>Ajouter un livre :</legend>
             <div class="form-group">
-                <?php $controller = static::$object; ?>
                 <input type='hidden' name='action' value='<?php echo $name ?>'>
             </div>
             <div class="form-group">
