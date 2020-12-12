@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="../CSS/profil.css">
         <link rel="stylesheet" href="../CSS/panier.css">
         <link rel="stylesheet" href="../CSS/commande.css">
+        <link rel="stylesheet" href="../CSS/auteur.css">
 <!--        <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>-->
         <script src="../assets/jquery-1.12.4.min.js"></script>
         <script src="../assets/bootstrap.bundle.min.js"></script>

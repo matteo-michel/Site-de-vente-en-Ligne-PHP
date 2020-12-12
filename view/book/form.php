@@ -86,7 +86,7 @@
             </div>
             <div class="form-group">
                 <label for="resume_id">Resumé</label> :
-                <textarea id="resume_id"class="form-control" name = "resume" rows="3" cols="50" maxlength="1024"> <?php echo isset($book)? $book->get('resume'):'';?></textarea>
+                <textarea id="resume_id" class="form-control" name = "resume" rows="3" cols="50" maxlength="1024"> <?php echo isset($book)? $book->get('resume'):'';?></textarea>
             </div>
             <?php if (!isset($book))
             {
