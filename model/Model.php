@@ -120,7 +120,8 @@ class   Model {
       }
       $result = rtrim($result, ',');
 
-      $sql = "UPDATE $table_name SET $result WHERE $primary_key = :primary_key;";
+       $sql = "UPDATE $table_name SET $result WHERE $primary_key = :primary_key;";
+
       $req = Model::$pdo->prepare($sql);
       
       $values = array('primary_key' => $primary_key_value);

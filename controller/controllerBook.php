@@ -97,10 +97,10 @@ class controllerBook
     public static function updated() {
         if (isset($_SESSION['login']) && $_SESSION['isAdmin']=='1') {
             $isbn = $_POST['isbn'];
-            $titre = addslashes($_POST['titre']);
+            $titre = $_POST['titre'];
             $prix = $_POST['prix'];
             $dateParution = $_POST['date'];
-            $resume = addslashes($_POST['resume']);
+            $resume = $_POST['resume'];
             $numEditeur = $_POST['numEditeur'];
             $listeAuteur = $_POST['numAuteur'];
             $listeCategorie = $_POST['numCategorie'];
@@ -184,6 +184,37 @@ class controllerBook
         } else {
             echo '<div class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</div>';
             controllerUtilisateur::login();
+        }
+    }
+
+    public static function updatePicture()
+    {
+        if (isset($_SESSION['login']) && $_SESSION['isAdmin']=='1')
+        {
+            $view = 'formPicture';
+            $name = 'end_updatePicture';
+            $book = ModelBook::select($_GET['isbn'])[0];
+            require File::build_path(array('view', 'view.php'));
+        } else if (isset($_SESSION['login'])) {
+            echo '<div class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</div>';
+            controllerBook::readAll();
+        } else {
+            ControllerUtilisateur::login();
+        }
+    }
+
+    public static function end_updatePicture()
+    {
+        if (isset($_SESSION['login']) && $_SESSION['isAdmin']=='1') {
+            $data = array('image' => file_get_contents($_FILES['image']['tmp_name']));
+            modelBook::update($data);
+            self::readAll();
+            echo "<div class='alert alert-success'>L'image du livre a bien été modifié ! </div>";
+        } else if (isset($_SESSION['login'])) {
+            echo '<div class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</div>';
+            controllerBook::readAll();
+        } else {
+            ControllerUtilisateur::login();
         }
     }
 

@@ -39,6 +39,9 @@ if (isset($_SESSION['login'])&&$_SESSION['isAdmin']=='1') $panel = $panel . '<h6
                                                                                 <a class="btn btn-danger" role="button" href="index.php?controller=book&action=delete&isbn=' . rawurlencode($book->get('isbn')) . '"><i class="fas fa-times"></i> Supprimer le livre</a>
                                                                             </div>
                                                                         </div>';
+$updateImage='';
+if (isset($_SESSION['login'])&&$_SESSION['isAdmin']=='1') $updateImage = '<a class="btn btn-secondary detailBookButton" role="button" href="index.php?controller=book&action=updatePicture&isbn=' . rawurlencode($book->get('isbn')) . '"><i class="fas fa-images"></i>  Modifier l\'image</a>';
+
 
 if ($book->get('isExiste') == '0') $panel = '';
 
@@ -53,8 +56,9 @@ echo '
                             <div class="card-block text-center text-white">
                                 <div class="m-b-25">' .
                                 $image .
-                                '</div>
-                                <h5 class="f-w-600">' . $book->get('titre') . '</h5>
+                                '</div>' .
+                                $updateImage .
+                                '<h5 class="f-w-600">' . $book->get('titre') . '</h5>
                                 <p>' . $book->get('isbn') . '</p>
                                 <h6 class="f-w-600">Prix : ' . $book->get('prix') . '€</h6>
                             </div>

@@ -98,7 +98,7 @@ class controllerAuteur
             modelAuteur::update($data);
 
             self::readAll();
-            echo "<div class='alert alert-success'>L\'auteur a bien été modifié ! </div>";
+            echo "<div class='alert alert-success'>L'auteur a bien été modifié ! </div>";
         } else if (isset($_SESSION['login'])) {
             echo '<p class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</p>';
             controllerBook::readAll();
