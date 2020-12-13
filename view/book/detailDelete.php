@@ -8,7 +8,7 @@ foreach ($book as $bookitem) {
         $auteurs = ModelAuteur::getBookAuteurs($bISBN);
 
         foreach ($auteurs as $a) {
-            $resultAuteur = $resultAuteur . '<a href="index.php?controller=auteur&action=read&numAuteur=' . $a->get('numAuteur') . '">' . $a->get('prenomAuteur') . " " . $a->get('nomAuteur') . '</a>' . ", ";
+            $resultAuteur = $resultAuteur . '<a href="index.php?controller=auteur&action=read&numAuteur=' . rawurlencode($a->get('numAuteur')) . '">' . htmlspecialchars($a->get('prenomAuteur')) . " " . htmlspecialchars($a->get('nomAuteur')) . '</a>' . ", ";
         }
 
         $resultAuteur = rtrim($resultAuteur, ', ');
@@ -21,7 +21,7 @@ foreach ($book as $bookitem) {
         }
         echo '  <div class="bookInfo">
                             <p>Titre : ' . htmlspecialchars($bookitem->get("titre")) . '</p>
-                            <p> Auteurs : ' . htmlspecialchars($resultAuteur) . '</p>
+                            <p> Auteurs : ' . $resultAuteur. '</p>
                             <p> Stock : ' . htmlspecialchars($bookitem->get('stock')) . '</p>
                             <p> Livre de numéro : <a href="index.php?action=read&isbn=' . rawurlencode($bISBN) . '">' . htmlspecialchars($bISBN) . '</a></p>
                             </div>';

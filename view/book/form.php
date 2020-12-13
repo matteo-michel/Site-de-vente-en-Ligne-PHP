@@ -27,7 +27,7 @@
                             if (isset($book) && $item->get('numEditeur')== $book->get('numEditeur')){
                                 $selected = "selected";
                             }
-                            echo "<option value=\"" . htmlspecialchars($item->get('numEditeur')) . "\" $selected>" . htmlspecialchars($item->get('nomEditeur')) . "</option>";
+                            echo "<option value=\"" . $item->get('numEditeur') . "\" $selected>" . htmlspecialchars($item->get('nomEditeur')) . "</option>";
                         }
                     ?>
                 </select>
@@ -49,7 +49,7 @@
                                 if ($lBAuteur->get('numAuteur') == $item->get('numAuteur')) $selected = "selected";
                             }
                         }
-                        echo "<option value=\"" . htmlspecialchars($item->get('numAuteur')) . "\" $selected>" . htmlspecialchars($item->get('prenomAuteur')) . " ". htmlspecialchars($item->get('nomAuteur')) . "</option>";
+                        echo "<option value=\"" . $item->get('numAuteur') . "\" $selected>" . htmlspecialchars($item->get('prenomAuteur')) . " ". htmlspecialchars($item->get('nomAuteur')) . "</option>";
                     }
                     ?>
                 </select>

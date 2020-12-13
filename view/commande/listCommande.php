@@ -12,7 +12,7 @@ if ($tab != false)
         $prixTotal = 0;
 
         if (!$listeBookByNumCommande) {
-            echo '<p> Les elements de cette commande n\'existent plus ! </p>';
+            echo '<p> Les elements de cette commande n\'existent plus ! </p></div>';
 
         } else {
             foreach ($listeBookByNumCommande as $book) {

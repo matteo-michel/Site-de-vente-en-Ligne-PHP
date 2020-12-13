@@ -228,7 +228,7 @@ class controllerBook
             $type = '';
             $isbn = $cookie['isbn'];
             $erreur = true;
-            echo '<div class="alert alert-danger">Un livre de même ISBN existe déjà !</div>';
+            echo '<div class="alert alert-danger">Impossible d\'ajouter ce livre !</div>';
             require File::build_path(array('view', 'view.php'));
         }
     }

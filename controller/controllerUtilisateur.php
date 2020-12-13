@@ -282,7 +282,7 @@ class ControllerUtilisateur {
 
     }
 
-    public static function errorlogin() {
+    public static function errorLogin() {
         if(isset($_COOKIE['createdData'])) {
             $cookie = unserialize($_COOKIE['createdData']);
             $user = new modelUtilisateur($cookie['login'],'','','','','');

@@ -32,6 +32,7 @@ if(class_exists($controller_class)) {
 	header('HTTP/1.0 404 Not Found');
 	exit;
 }
+
 $controller_class::$action();
 
 ?> 

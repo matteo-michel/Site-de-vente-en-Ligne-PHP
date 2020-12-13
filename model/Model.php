@@ -84,7 +84,7 @@ class   Model {
         foreach ($data as $key => $value)
           {
               $stringInto =  $stringInto . $key . ',';
-              $stringValue = $stringValue . "'" . $value . "'" . ',';
+              $stringValue = $stringValue . "'" . addslashes($value) . "'" . ',';
           }
         $stringInto = rtrim($stringInto,",") . ')';
         $stringValue = rtrim($stringValue, ",");
@@ -97,10 +97,8 @@ class   Model {
       } catch (PDOException $e) {
         if (Conf::getDebug()) {
             echo $e->getMessage();
-
         } else {
             header("location: index.php?controller=$table_name&action=errorSave");
-            //echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
         }
         die();
     }
