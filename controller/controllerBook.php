@@ -48,8 +48,9 @@ class controllerBook
                 'numEditeur' => $_POST['numEditeur'],
                 'prix' => $_POST['prix'],
                 'dateParution' => $_POST['date'],
-                'resume' => $_POST['resume'],
-                'image' => file_get_contents($_FILES['image']['tmp_name']));
+                'resume' => $_POST['resume']);
+            Model::saveCookie($data + array('isbn' => $_POST['isbn']), 5, 'createdData');
+            $data = $data + array('image' => file_get_contents($_FILES['image']['tmp_name']));
             ModelBook::saveGen($data);
             $listAuteurs = $_POST['numAuteur'];
             foreach ($listAuteurs as $la) {
@@ -206,7 +207,7 @@ class controllerBook
     public static function end_updatePicture()
     {
         if (isset($_SESSION['login']) && $_SESSION['isAdmin']=='1') {
-            $data = array('image' => file_get_contents($_FILES['image']['tmp_name']));
+            $data = array('image' => file_get_contents($_FILES['newImage']['tmp_name']));
             modelBook::update($data);
             self::readAll();
             echo "<div class='alert alert-success'>L'image du livre a bien été modifié ! </div>";
@@ -215,6 +216,20 @@ class controllerBook
             controllerBook::readAll();
         } else {
             ControllerUtilisateur::login();
+        }
+    }
+
+    public static function errorSave() {
+        if(isset($_COOKIE['createdData'])) {
+            $cookie = unserialize($_COOKIE['createdData']);
+            $book = new ModelBook($cookie['isbn'], $cookie['titre'], $cookie['numEditeur'], $cookie['prix'], $cookie['dateParution'], $cookie['stock'], '', $cookie['resume'], 1);
+            $view = 'form';
+            $name = 'created';
+            $type = '';
+            $isbn = $cookie['isbn'];
+            $erreur = true;
+            echo '<div class="alert alert-danger">Un livre de même ISBN existe déjà !</div>';
+            require File::build_path(array('view', 'view.php'));
         }
     }
 

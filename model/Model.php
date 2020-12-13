@@ -96,13 +96,11 @@ class   Model {
         $req_prep->execute($values);
       } catch (PDOException $e) {
         if (Conf::getDebug()) {
-          echo $e->getMessage();
-        } else if ($e->getCode() == 23000){
-            header("location:".  $_SERVER['HTTP_REFERER']);
-            //echo "Ce " . $primary_key . " existe déjà !";
+            echo $e->getMessage();
 
         } else {
-          echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            header("location: index.php?controller=$table_name&action=errorSave");
+            //echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
         }
         die();
     }
@@ -120,8 +118,7 @@ class   Model {
       }
       $result = rtrim($result, ',');
 
-       $sql = "UPDATE $table_name SET $result WHERE $primary_key = :primary_key;";
-
+      $sql = "UPDATE $table_name SET $result WHERE $primary_key = :primary_key;";
       $req = Model::$pdo->prepare($sql);
       
       $values = array('primary_key' => $primary_key_value);
@@ -158,6 +155,13 @@ class   Model {
       }
       die();
     }
+  }
+
+  public static function saveCookie($data, $time, $name) {
+      if(isset($_COOKIE[$name])) {
+          unset($_COOKIE[$name]);
+      }
+      setcookie($name, serialize($data), time() + $time);
   }
 
 }

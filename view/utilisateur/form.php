@@ -3,10 +3,9 @@
         <fieldset>
         <legend>Connexion :</legend>
             <div class="form-group">
-                <?php $controller = static::$object; ?>
                 <input type='hidden' name='action' value='<?php echo $name ?>'>
                 <label for="login_id">Login</label> :
-                <input type="text"  name="login" id="login_id" class="form-control" required/>
+                <input type="text"  name="login" id="login_id" value="<?php echo (isset($user))? $user->get('login'): ''; ?>" class="form-control" required/>
             </div>
             <div class="form-group">
                 <label for="password_id">Mot De Passe</label> :

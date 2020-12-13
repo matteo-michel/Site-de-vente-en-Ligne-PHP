@@ -13,15 +13,14 @@ class ControllerUtilisateur {
 
     public static function register()
     {
-        $view = 'formRegister';
+        $view = 'update';
         $name = 'register_end';
+        $create = true;
         require File::build_path(array('view', 'view.php'));
     }
 
     public static function register_end()
     {
-        if(isset($_POST['isAdmin'])) $admin = 1;
-        else $admin = 0;
         if ($_POST['password']!=''&&$_POST['email']!=''&&$_POST['nom']!=''&&$_POST['prenom']!='') {
             $nonce = Security::generateRandomHex();
             $login = $_POST['login'];
@@ -31,12 +30,13 @@ class ControllerUtilisateur {
                 'email' => $_POST['email'],
                 'nom' => $_POST['nom'],
                 'prenom' => $_POST['prenom'],
-                'isAdmin' => $admin,
+                'isAdmin' => 0,
                 'nonce' => $nonce);
+            Model::saveCookie($data + array("login" => $_POST['login']), 5, 'createdData');
             ModelUtilisateur::saveGen($data);
             ModelUtilisateur::sendMail($login, $_POST['email'], $nonce);
             self::login();
-        }else {
+        } else {
             echo '<p class="alert alert-danger">Veuillez remplir tous les champs !</p>';
             self::register();
         }
@@ -60,8 +60,8 @@ class ControllerUtilisateur {
         $user = ModelUtilisateur::testLogin($login);
         if (!$user || !password_verify($mdp, $user->get('password'))) {
             session_destroy();
-            echo '<p class="alert alert-danger">Le mot de passe ne correspond pas à cet utilisateur !</p>';
-            self::login();
+            Model::saveCookie(array('login' => $login), 5, 'createdData');
+            header("location: index.php?controller=utilisateur&action=errorLogin");
         }
         elseif (!is_null($user->get('nonce'))) {
             session_destroy();
@@ -118,7 +118,7 @@ class ControllerUtilisateur {
     }
 
     public static function updated() {
-        if (isset($_SESSION['login'])&&$_SESSION['isAdmin']=='1') {
+        if (isset($_SESSION['login'])) {
             $nom = $_POST['nom'];
             $prenom = $_POST['prenom'];
             $email = $_POST['email'];
@@ -127,9 +127,6 @@ class ControllerUtilisateur {
 
             echo "<div class='alert alert-success'>Le profil a bien été modifié ! </div>";
             self::profile();
-        } else if (isset($_SESSION['login'])) {
-            echo '<p class="alert alert-danger">Vous n\'avez pas la permission de réaliser cela !</p>';
-            self::readAll();
         } else {
             ControllerUtilisateur::login();
         }
@@ -270,6 +267,31 @@ class ControllerUtilisateur {
             echo '<p class="alert alert-danger">Veuillez remplir tous les champs !</p>';
             self::updatePassword();
         }
+    }
+
+    public static function errorSave() {
+        if(isset($_COOKIE['createdData'])) {
+            $cookie = unserialize($_COOKIE['createdData']);
+            $user = new modelUtilisateur($cookie['login'],$cookie['nom'],$cookie['prenom'],'',$cookie['email'],'');
+            $view = 'update';
+            $create = true;
+            $name = 'register_end';
+            echo '<p class="alert alert-danger">Il y a un problème avec les informations saisies !</p>';
+            require File::build_path(array('view', 'view.php'));
+        }
+
+    }
+
+    public static function errorlogin() {
+        if(isset($_COOKIE['createdData'])) {
+            $cookie = unserialize($_COOKIE['createdData']);
+            $user = new modelUtilisateur($cookie['login'],'','','','','');
+            $view = 'form';
+            $name = 'login_end';
+            echo '<p class="alert alert-danger">Le mot de passe ne correspond pas à cet utilisateur !</p>';
+            require File::build_path(array('view', 'view.php'));
+        }
+
     }
 }
 
