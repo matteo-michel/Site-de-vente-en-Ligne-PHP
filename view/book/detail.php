@@ -69,21 +69,21 @@ echo '
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Auteur</p>
-                                        <h6 class="text-muted f-w-400">' . $resultAuteur . '</h6>
+                                        <h6 class="text-muted f-w-400">' . htmlspecialchars($resultAuteur) . '</h6>
                                     </div>
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Editeur</p>
-                                        <h6 class="text-muted f-w-400">' . ModelEditeur::select($book->get('numEditeur'))[0]->get('nomEditeur') . '</h6>
+                                        <h6 class="text-muted f-w-400">' . htmlspecialchars(ModelEditeur::select($book->get('numEditeur'))[0]->get('nomEditeur')) . '</h6>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Resumé</p>
-                                        <h6 class="text-muted f-w-400">' . $book->get('resume') . '</h6>
+                                        <h6 class="text-muted f-w-400">' . htmlspecialchars($book->get('resume')) . '</h6>
                                     </div>
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Catégorie</p>
-                                        <h6 class="text-muted f-w-400">' . $resultCat . '</h6>
+                                        <h6 class="text-muted f-w-400">' . htmlspecialchars($resultCat) . '</h6>
                                     </div>
                                 </div>
                                 <div class="row">

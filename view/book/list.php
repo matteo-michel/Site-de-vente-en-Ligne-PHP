@@ -62,9 +62,9 @@
                 echo '<img src="data:image/jpeg;base64,' . base64_encode($u->get('image')) . '"/>';
             }
             echo '  <div class="bookInfo">
-                    <p>Titre : ' . $u->get("titre") . '</p>
-                    <p> Auteurs : ' . $resultAuteur . '</p>
-                    <p> Stock : ' . $u->get('stock') . '</p>
+                    <p>Titre : ' . htmlspecialchars($u->get("titre")) . '</p>
+                    <p> Auteurs : ' . htmlspecialchars($resultAuteur) . '</p>
+                    <p> Stock : ' . htmlspecialchars($u->get('stock')) . '</p>
                     <p> Livre de numéro : <a href="index.php?action=read&isbn=' . rawurlencode($bISBN) . '">' . htmlspecialchars($bISBN) . '</a></p>
                     </div>
                     <div class="panier">

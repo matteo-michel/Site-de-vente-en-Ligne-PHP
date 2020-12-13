@@ -26,14 +26,14 @@
             echo '<div class="bookInfo">';
             echo '<p> Auteurs : '. $resultAuteur .'</p>';
             echo '<p> Livre de numéro : <a href="index.php?action=read&isbn=' . rawurlencode($bISBN) . '">' . htmlspecialchars($bISBN) . '</a>'. " " . $livre->get('titre') . '</p>';
-            echo '<p> Quantité : '. $t->get('quantite') .'</p>';
-            echo '<p> Prix : '. $livre->get('prix')*$t->get('quantite') . '€' .  '</p>';
+            echo '<p> Quantité : '. htmlspecialchars($t->get('quantite')) .'</p>';
+            echo '<p> Prix : '. htmlspecialchars($livre->get('prix')*$t->get('quantite')) . '€' .  '</p>';
             echo '</div>';
             echo '<div class="panier">';
-            echo '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book'. $livre->get('isbn') .'"><i class="fas fa-cubes"></i> Modifier la quantite </button>
+            echo '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book'. htmlspecialchars($livre->get('isbn')) .'"><i class="fas fa-cubes"></i> Modifier la quantite </button>
                     
                     <!-- Modal -->
-                    <div class="modal fade" id="book'. $livre->get('isbn') .'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal fade" id="book'. htmlspecialchars($livre->get('isbn')) .'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -50,7 +50,7 @@
                                                 <input type="hidden" name="action" value="update">
                                                 <input type="hidden" name="isbn" value=' . rawurlencode($bISBN) . '>
                                                 <label for="quantite_id">Nouvelle quantite </label> :
-                                                <input type="number" value = "' . $t->get('quantite') . '"name="quantite" id="quantite_id" min="1" required />
+                                                <input type="number" value = "' . htmlspecialchars($t->get('quantite')) . '"name="quantite" id="quantite_id" min="1" required />
                                             </div>
                                      </fieldset>
                             </div>
@@ -71,7 +71,7 @@
         echo '<div>';
 
         echo '<div class="panier-info">';
-        echo 'Le prix total de la commande est de : ' . $compteurPrix . '€';
+        echo 'Le prix total de la commande est de : ' . htmlspecialchars($compteurPrix) . '€';
         echo '<a class="btn btn-success" data-toggle="modal" data-target="#validerCommande">Passer la commande</a>';
         echo '<a class="btn btn-danger" href="index.php?controller=panier&action=clear">Vider le panier</a>';
         echo '</div>';

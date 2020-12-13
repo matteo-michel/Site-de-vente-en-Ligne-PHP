@@ -11,11 +11,11 @@
             </div>
             <div class="form-group">
                 <label for="titre_id">Titre</label> :
-                <input type="text" class="form-control" value = "<?php echo isset($book)? $book->get('titre'):'' ; ?>" name="titre" id="titre_id" required/>
+                <input type="text" class="form-control" value = "<?php echo isset($book)? htmlspecialchars($book->get('titre')):'' ; ?>" name="titre" id="titre_id" required/>
             </div>
             <div class="form-group">
                 <label for="stock_id">Stock</label> :
-                <input type="number" value = "<?php echo isset($book)? $book->get('stock'):'' ; ?>" name="stock" id="stock_id" required/>
+                <input type="number" value = "<?php echo isset($book)? htmlspecialchars($book->get('stock')):'' ; ?>" name="stock" id="stock_id" required/>
             </div>
             <div class="form-group">
                 <label for="numEditeur_id">Nom Editeur</label> :
@@ -27,7 +27,7 @@
                             if (isset($book) && $item->get('numEditeur')== $book->get('numEditeur')){
                                 $selected = "selected";
                             }
-                            echo "<option value=\"" . $item->get('numEditeur') . "\" $selected>" . $item->get('nomEditeur') . "</option>";
+                            echo "<option value=\"" . htmlspecialchars($item->get('numEditeur')) . "\" $selected>" . htmlspecialchars($item->get('nomEditeur')) . "</option>";
                         }
                     ?>
                 </select>
@@ -49,7 +49,7 @@
                                 if ($lBAuteur->get('numAuteur') == $item->get('numAuteur')) $selected = "selected";
                             }
                         }
-                        echo "<option value=\"" . $item->get('numAuteur') . "\" $selected>" . $item->get('prenomAuteur') . " ". $item->get('nomAuteur') . "</option>";
+                        echo "<option value=\"" . htmlspecialchars($item->get('numAuteur')) . "\" $selected>" . htmlspecialchars($item->get('prenomAuteur')) . " ". htmlspecialchars($item->get('nomAuteur')) . "</option>";
                     }
                     ?>
                 </select>
@@ -71,22 +71,22 @@
                                 if ($lBCategorie->get('numCategorie') == $item->get('numCategorie')) $selected = "selected";
                             }
                         }
-                        echo "<option value=\"" . $item->get('numCategorie') . "\" $selected>" . $item->get('nomCategorie') . "</option>";
+                        echo "<option value=\"" . htmlspecialchars($item->get('numCategorie')) . "\" $selected>" . htmlspecialchars($item->get('nomCategorie')) . "</option>";
                     }
                     ?>
                 </select>
             </div>
             <div class="form-group">
                 <label for="prix_id">Prix</label> :
-                <input type="number" name="prix" value = "<?php echo isset($book)? $book->get('prix'):'' ; ?>" id="prix_id" required/>
+                <input type="number" name="prix" value = "<?php echo isset($book)? htmlspecialchars($book->get('prix')):'' ; ?>" id="prix_id" required/>
             </div>
             <div class="form-group">
                 <label for="date_id">Date de Parution</label> :
-                <input type="date" name="date" value = "<?php echo isset($book)? $book->get('dateParution'):'' ;?>" id="date_id" required/>
+                <input type="date" name="date" value = "<?php echo isset($book)? htmlspecialchars($book->get('dateParution')):'' ;?>" id="date_id" required/>
             </div>
             <div class="form-group">
                 <label for="resume_id">Resumé</label> :
-                <textarea id="resume_id" class="form-control" name = "resume" rows="3" cols="50" maxlength="1024"> <?php echo isset($book)? $book->get('resume'):'';?></textarea>
+                <textarea id="resume_id" class="form-control" name = "resume" rows="3" cols="50" maxlength="1024"> <?php echo isset($book)? htmlspecialchars($book->get('resume')):'';?></textarea>
             </div>
             <?php if (!isset($book) || isset($erreur))
             {

@@ -20,9 +20,9 @@ foreach ($book as $bookitem) {
             echo '<img src="data:image/jpeg;base64,' . base64_encode($bookitem->get('image')) . '"/>';
         }
         echo '  <div class="bookInfo">
-                            <p>Titre : ' . $bookitem->get("titre") . '</p>
-                            <p> Auteurs : ' . $resultAuteur . '</p>
-                            <p> Stock : ' . $bookitem->get('stock') . '</p>
+                            <p>Titre : ' . htmlspecialchars($bookitem->get("titre")) . '</p>
+                            <p> Auteurs : ' . htmlspecialchars($resultAuteur) . '</p>
+                            <p> Stock : ' . htmlspecialchars($bookitem->get('stock')) . '</p>
                             <p> Livre de numéro : <a href="index.php?action=read&isbn=' . rawurlencode($bISBN) . '">' . htmlspecialchars($bISBN) . '</a></p>
                             </div>';
 

@@ -9,7 +9,7 @@ foreach ($tab as $t)
 {
     echo '<div class="livre">';
     echo '<div class="bookInfo">';
-    echo '<p> Editeur : '.$t->get('nomEditeur').'</p>';
+    echo '<p> Editeur : '.htmlspecialchars($t->get('nomEditeur')).'</p>';
     echo '</div>';
     echo '<div class="panier">';
     echo '<a class="btn btn-primary" href="index.php?controller=editeur&action=update&numEditeur='.rawurlencode($t->get('numEditeur')).'"><i class="fas fa-pen"></i> Modifier</a>';

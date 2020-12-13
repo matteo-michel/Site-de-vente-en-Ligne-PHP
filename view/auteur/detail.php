@@ -19,13 +19,13 @@ foreach ($books as $b) {
         echo '<img src="data:image/jpeg;base64,'.base64_encode($b->get('image')).'"/>';
     }
     echo '  <div class="bookInfo">
-                <p>Titre : '. $b->get("titre") . '</p>
-                <p> Auteurs : '. $resultAuteur .'</p>
-                <p> Stock : '. $b->get('stock') .'</p>
+                <p>Titre : '. htmlspecialchars($b->get("titre")) . '</p>
+                <p> Auteurs : '. htmlspecialchars($resultAuteur) .'</p>
+                <p> Stock : '. htmlspecialchars($b->get('stock')) .'</p>
                 <p> Livre de numéro : <a href="index.php?action=read&isbn=' . rawurlencode($bISBN) . '">' . htmlspecialchars($bISBN) . '</a></p>
                 </div>
                 <div class="panier">
-                <p>' . $b->get("prix") . '<sup>€</sup></p>';
+                <p>' . htmlspecialchars($b->get("prix")) . '<sup>€</sup></p>';
     if ($b->get('stock') == 0) {
         echo '<p id="stock"> Rupture de stock </p>';
     } else {

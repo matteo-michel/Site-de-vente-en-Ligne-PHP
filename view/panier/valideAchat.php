@@ -6,14 +6,14 @@
             $quantite = $item->get('quantite');
             $itemQuantite = ModelBook::select($item->get('isbn'))[0]->get('stock');
             if ($quantite > $itemQuantite) {
-                echo "<div class='alert alert-danger'>Il n'y pas assez de produit en stock pour le livre de numéro : " . $item->get('isbn') . "</div>";
+                echo "<div class='alert alert-danger'>Il n'y pas assez de produit en stock pour le livre de numéro : " . htmlspecialchars($item->get('isbn')) . "</div>";
 
                 $testQuantite = false;
             }
 
             $isExiste = ModelBook::select($item->get('isbn'))[0]->get('isExiste');
             if ($isExiste == '0') {
-                echo "<div class='alert alert-danger'>Le livre de numero : " . $item->get('isbn') . " a été supprimé !</div>";
+                echo "<div class='alert alert-danger'>Le livre de numero : " . htmlspecialchars($item->get('isbn')) . " a été supprimé !</div>";
 
                 $testQuantite = false;
             }

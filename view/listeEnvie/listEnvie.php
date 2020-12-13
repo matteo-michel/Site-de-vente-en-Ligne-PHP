@@ -24,13 +24,13 @@ if (!$tab)
             echo '<img src="data:image/jpeg;base64,'.base64_encode($livre->get('image')).'"/>';
         }
         echo '<div class="bookInfo">';
-        echo '<p>Titre : ' . $livre->get("titre") . '</p>';
-        echo '<p> Auteurs : ' . $resultAuteur . '</p>';
-        echo '<p> Stock : ' . $livre->get('stock') . '</p>';
+        echo '<p>Titre : ' . htmlspecialchars($livre->get("titre")) . '</p>';
+        echo '<p> Auteurs : ' . htmlspecialchars($resultAuteur) . '</p>';
+        echo '<p> Stock : ' . htmlspecialchars($livre->get('stock')) . '</p>';
         echo '<p> Livre de numéro : <a href="index.php?action=read&isbn=' . rawurlencode($bISBN) . '">' . htmlspecialchars($bISBN) . '</a></p>';
         echo '</div>';
         echo '<div class="panier">';
-        echo '<p>' . $livre->get("prix") . '<sup>€</sup></p>';
+        echo '<p>' . htmlspecialchars($livre->get("prix")) . '<sup>€</sup></p>';
         if ($livre->get('isExiste') == '1') {
             if ($livre->get('stock') == 0) {
                 echo '<p id="stock"> Rupture de stock </p>';

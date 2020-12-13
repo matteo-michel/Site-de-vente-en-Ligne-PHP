@@ -34,9 +34,9 @@ if ($tab != false)
                 }
 
                 echo '<div class="bookInfo">';
-                echo '<p>Titre : ' . $livreCommande->get("titre") . '</p>';
-                echo '<p> Auteurs : ' . $resultAuteur . '</p>';
-                echo '<p> Quantite : ' . $book->get('quantite') . '</p>';
+                echo '<p>Titre : ' . htmlspecialchars($livreCommande->get("titre")) . '</p>';
+                echo '<p> Auteurs : ' . htmlspecialchars($resultAuteur) . '</p>';
+                echo '<p> Quantite : ' . htmlspecialchars($book->get('quantite')) . '</p>';
                 echo '<p> Livre de numéro : <a href="index.php?action=read&isbn=' . rawurlencode($livreCommande->get('isbn')) . '">' . htmlspecialchars($livreCommande->get('isbn')) . '</a></p>';
                 echo '</div>';
                 echo '<div class="panier">';
@@ -45,7 +45,7 @@ if ($tab != false)
                 $prixTotal = $prixTotal + $livreCommande->get('prix') * $book->get('quantite');
             }
 
-            echo '<p>Le prix total de la commande est : ' . $prixTotal . ' €</p>';
+            echo '<p>Le prix total de la commande est : ' . htmlspecialchars($prixTotal) . ' €</p>';
             echo '</div>';
         }
     }

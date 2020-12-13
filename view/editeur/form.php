@@ -6,7 +6,7 @@
             <input type='hidden' name='numEditeur' value='<?php echo $numEditeur ?>'>
 
             <label for="nomEditeur_id">Nom éditeur</label> :
-            <input type="text"  name="nomEditeur" value = "<?php echo isset($editeur)? $editeur->get('nomEditeur'):'' ; ?>"id="nomEditeur_id" required/>
+            <input type="text"  name="nomEditeur" value = "<?php echo isset($editeur)? htmlspecialchars($editeur->get('nomEditeur')):'' ; ?>"id="nomEditeur_id" required/>
 
         </div>
         <div class="text-center">
